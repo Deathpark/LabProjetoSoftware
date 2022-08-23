@@ -9,23 +9,40 @@ public class Matricula {
     private double mensalidade;
 
     public Matricula() {
-        this.nome = "";
-        this.estaAtiva = true;
-        this.obrigatoria = false;
-        this.alunos = new ArrayList<Aluno>();
+        this.dataInicio = new Date();
+        this.dataFim = new Date();
+        this.aluno = new Aluno();
+        this.disciplinas = new ArrayList<Disciplina>();
+        this.mensalidade = 0.0;
     }
 
-    public Matricula(String nome, boolean estaAtiva, boolean obrigatoria) {
-        this.nome = nome;
-        this.estaAtiva = estaAtiva;
-        this.obrigatoria = obrigatoria;
-        this.alunos = new ArrayList<Aluno>();
+    public Matricula(Date dataInicio, Date dataFim, Aluno aluno, ArrayList<Disciplina> disciplinas, double mensalidade) {
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+        this.aluno = aluno;
+        this.disciplinas = disciplinas;
+        this.mensalidade = mensalidade;
     }
 
-    public Matricula(String nome, boolean estaAtiva, boolean obrigatoria, ArrayList<Aluno> alunos) {
-        this.nome = nome;
-        this.estaAtiva = estaAtiva;
-        this.obrigatoria = obrigatoria;
-        this.alunos = alunos;
+    public Matricula(Date dataInicio, Aluno aluno, ArrayList<Disciplina> disciplinas, double mensalidade) {
+        this.dataInicio = dataInicio;
+        this.dataFim = null;
+        this.aluno = aluno;
+        this.disciplinas = disciplinas;
+        this.mensalidade = mensalidade;
+    }
+
+    public void adicionarDisciplina(Disciplina disciplina) {
+        this.disciplinas.add(disciplina);
+    }
+
+    public void removerDisciplina(Disciplina disciplina) {
+        //verificar periodo aberto
+        this.disciplinas.remove(disciplina);
+    }
+
+    public boolean estaEmAberto() {
+        //logica para aberto/fechado
+        return true;
     }
 }
