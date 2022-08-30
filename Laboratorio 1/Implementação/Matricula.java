@@ -1,24 +1,25 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Matricula implements Serializable {
-    private Date dataInicio;
-    private Date dataFim;
+    private Calendar dataInicio;
+    private Calendar dataFim;
     private Aluno aluno;
     private ArrayList<Disciplina> disciplinas;
     private double mensalidade;
     static final long serialVersionUID = 5;
 
     public Matricula() {
-        this.dataInicio = new Date();
-        this.dataFim = new Date();
+        this.dataInicio = Calendar.getInstance();
+        this.dataFim = Calendar.getInstance();
         // this.aluno = new Aluno();
         this.disciplinas = new ArrayList<Disciplina>();
         this.mensalidade = 0.0;
     }
 
-    public Matricula(Date dataInicio, Date dataFim, Aluno aluno, ArrayList<Disciplina> disciplinas, double mensalidade) {
+    public Matricula(Calendar dataInicio, Calendar dataFim, Aluno aluno, ArrayList<Disciplina> disciplinas, double mensalidade) {
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.aluno = aluno;
@@ -26,7 +27,7 @@ public class Matricula implements Serializable {
         this.mensalidade = mensalidade;
     }
 
-    public Matricula(Date dataInicio, Aluno aluno, ArrayList<Disciplina> disciplinas, double mensalidade) {
+    public Matricula(Calendar dataInicio, Aluno aluno, ArrayList<Disciplina> disciplinas, double mensalidade) {
         this.dataInicio = dataInicio;
         this.dataFim = null;
         this.aluno = aluno;
@@ -39,15 +40,25 @@ public class Matricula implements Serializable {
     }
 
     public void removerDisciplina(Disciplina disciplina) {
-        //verificar periodo aberto
         if(this.estaEmAberto()) {
             this.disciplinas.remove(disciplina);
         }
         System.out.println("Período indisponível para remover matrícula");
     }
 
+
     public boolean estaEmAberto() {
-        //logica para aberto/fechado
-        return true;
+        Calendar cal = Calendar.getInstance();            
+        int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);          
+        int month = cal.get(Calendar.MONTH);     
+             
+        if (this.dataInicio.DAY_OF_MONTH <= dayOfMonth && this.dataInicio.MONTH <= month) {           
+            return true;            
+        } else if (this.dataFim.DAY_OF_MONTH >= dayOfMonth && this.dataFim.MONTH >= month) {            
+            return true;          
+        } else {           
+            return false;           
+        }          
     }
+    
 }
