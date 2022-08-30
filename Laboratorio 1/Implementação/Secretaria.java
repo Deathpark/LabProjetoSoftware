@@ -38,12 +38,6 @@ public class Secretaria extends Usuario {
         escreverDados(disciplinas, ARQ_DISCIPLINAS);
     }
 
-    public void visualizarTodosOsAlunos() {
-        for (Aluno d : alunos) {
-            System.out.println(d);
-        }
-    }
-
     public void gerarCurriculoSemestre() {
 
     }
@@ -69,6 +63,12 @@ public class Secretaria extends Usuario {
             System.out.println("Disciplina removida com sucesso!");
         } else {
             System.out.println("Disciplina não encontrada!");
+        }
+    }
+
+    public void visualizarTodosOsAlunos() {
+        for (Aluno d : alunos) {
+            System.out.println(d);
         }
     }
 
@@ -103,9 +103,9 @@ public class Secretaria extends Usuario {
         System.out.println(aluno.toString());
     }
 
-    public void atualizarProfessor(Professor professor) {
-        Scanner scanner = new Scanner(System.in);
+    // #region professor
 
+    public void atualizarProfessor(Professor professor, Scanner scanner) {
         this.menuAtualizacaoCadastros(OPCAO_MENU_PROFESSOR);
         int opcao = scanner.nextInt();
 
@@ -149,12 +149,11 @@ public class Secretaria extends Usuario {
 
             this.menuAtualizacaoCadastros(OPCAO_MENU_PROFESSOR);
         }
-
         System.out.println("Atualização do professor feita com sucesso!");
     }
 
-    public void criarProfessor() {
-        Scanner scanner = new Scanner(System.in);
+    public void criarProfessor(Scanner scanner) {
+
         System.out.println("Digite o nome do Professor:");
         String nome = scanner.nextLine();
         System.out.println("Digite a senha do Professor:");
@@ -186,7 +185,8 @@ public class Secretaria extends Usuario {
         this.professores.add(new Professor(nome, senha, disciplinas));
         System.out.println("\n\nProfessor adicionado!");
 
-        scanner.close();
+
+
     }
 
     public void excluirProfessor(Professor professor) {
@@ -202,6 +202,14 @@ public class Secretaria extends Usuario {
     public void visualizarProfessor(Professor professor) {
         System.out.println(professor.toString());
     }
+
+    public void visualizarTodosOsProfessores() {
+        for (Professor p : professores) {
+            System.out.println(p);
+        }
+    }
+
+    // #endregion
 
     public void menuAtualizacaoCadastros(String opcao) {
         // Bloco comum
@@ -250,7 +258,7 @@ public class Secretaria extends Usuario {
                     // menu CRUD discipina
                     break;
                 case 2:
-                    // menu CRUD prof
+                    menuProfessor(teclado);
                     break;
                 case 3:
                     menuAluno(teclado);
@@ -283,7 +291,41 @@ public class Secretaria extends Usuario {
         return opcao;
     }
 
-    public void menuAluno(Scanner teclado) {
+    private void menuProfessor(Scanner teclado) {
+        int opcao;
+        do {
+            opcao = opcoesCRUD(teclado, OpcoesSecretaria.OPCAO_MENU_PROFESSOR);
+            Professor prof;
+
+            switch (opcao) {
+                case 1:
+                    prof = getProfessorByNome(teclado);
+                    if (prof != null)
+                        visualizarProfessor(prof);
+                    break;
+                case 2:
+                    criarProfessor(teclado);
+                    break;
+                case 3:
+                    prof = getProfessorByNome(teclado);
+                    if (prof != null)
+                        atualizarProfessor(prof, teclado);
+                    break;
+                case 4:
+                    prof = getProfessorByNome(teclado);
+                    excluirProfessor(prof);
+                    break;
+                case 5:
+                    visualizarTodosOsProfessores();
+                    break;
+
+            }
+            pausa(teclado);
+            limparTela();
+        } while (opcao != 0);
+    }
+
+    private void menuAluno(Scanner teclado) {
         int opcao;
         do {
             opcao = opcoesCRUD(teclado, OpcoesSecretaria.OPCAO_MENU_ALUNO);
@@ -338,6 +380,9 @@ public class Secretaria extends Usuario {
         return opcao;
     }
 
+    // #endregion
+
+    // #region pesquisa por nome
     private Aluno getAlunoByNome(Scanner teclado) {
         Optional<Aluno> aluno;
         boolean erro = false;
@@ -355,6 +400,27 @@ public class Secretaria extends Usuario {
 
         if (aluno.isPresent()) {
             return aluno.get();
+        }
+        return null;
+    }
+
+    private Professor getProfessorByNome(Scanner teclado) {
+        Optional<Professor> prof;
+        boolean erro = false;
+
+        do {
+            System.out.println("Digite o nome. Deixe em branco para sair");
+            String nome = teclado.nextLine();
+            prof = professores.stream().filter(a -> a.nome.equals(nome)).findAny();
+            if (prof.isEmpty() && !nome.equals("")) {
+                erro = true;
+                System.out.println("Esse professor não existe! Tente novamente.");
+            } else
+                erro = false;
+        } while (erro);
+
+        if (prof.isPresent()) {
+            return prof.get();
         }
         return null;
     }
