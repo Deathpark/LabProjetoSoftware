@@ -17,8 +17,13 @@ public class Secretaria extends Usuario {
     private static final String OPCAO_MENU_PROFESSOR = "professor(a)";
     private static final String OPCAO_MENU_ALUNO = "aluno(a)";
     private static final String OPCAO_MENU_DISCIPLINA = "disciplina";
+    private static Secretaria secretaria = new Secretaria();
 
-    public Secretaria() {
+    public static Secretaria getInstance() {
+        return secretaria;
+    }
+
+    private Secretaria() {
         super("nome", "senha");
         this.alunos = lerDados(ARQ_ALUNOS);
         this.disciplinas = lerDados(ARQ_DISCIPLINAS);
@@ -73,9 +78,13 @@ public class Secretaria extends Usuario {
     }
 
     public Aluno criarAluno(String nome, String senha) {
+        if (nome.equals("")) {
+            return null;
+        }
         Aluno a = new Aluno(nome, senha);
         alunos.add(a);
         return a;
+
     }
 
     public void excluirAluno(Aluno aluno) {
@@ -92,14 +101,14 @@ public class Secretaria extends Usuario {
         System.out.println(aluno.toString());
     }
 
-    public void atualizarProfessor(Professor professor){
+    public void atualizarProfessor(Professor professor) {
         Scanner scanner = new Scanner(System.in);
-        
+
         this.menuAtualizacaoCadastros(OPCAO_MENU_PROFESSOR);
         int opcao = scanner.nextInt();
-        
-        while(opcao != 0) {
-            switch(opcao) {
+
+        while (opcao != 0) {
+            switch (opcao) {
                 case 1:
                     System.out.println("Digite o novo nome do Professor:");
                     professor.setNome(scanner.nextLine());
@@ -111,21 +120,21 @@ public class Secretaria extends Usuario {
                     break;
                 case 3:
                     int opcao2 = 1;
-                    while(opcao2 == 1 || opcao2 == 2) {
+                    while (opcao2 == 1 || opcao2 == 2) {
                         System.out.println("1 - Adicionar disciplinas | 2 - Remover disciplinas");
                         System.out.println("Digite qualquer outro número para finalizar.");
                         opcao2 = scanner.nextInt();
-                        
-                        if(opcao2 == 1) {
+
+                        if (opcao2 == 1) {
                             Disciplina disciplina = this.buscaDisciplina(scanner);
-                            
-                            if(disciplina != null) {
+
+                            if (disciplina != null) {
                                 professor.adicionarDisciplina(disciplina);
                                 System.out.println("Disciplina adicionada com sucesso!");
                             } else {
                                 System.out.println("Disciplina não encontrada!");
                             }
-                        } else if(opcao2 == 2) {
+                        } else if (opcao2 == 2) {
                             professor.removerDisciplina(this.buscaDisciplina(scanner));
                         }
                     }
@@ -135,7 +144,7 @@ public class Secretaria extends Usuario {
                     opcao = 0;
                     break;
             }
-            
+
             this.menuAtualizacaoCadastros(OPCAO_MENU_PROFESSOR);
         }
 
@@ -152,13 +161,13 @@ public class Secretaria extends Usuario {
         System.out.println("1 - Sim | 2 - Não");
         int opcao = scanner.nextInt();
 
-        ArrayList<Disciplina> discAdd = new ArrayList<Disciplina>();        
-        if(opcao == 1) {
+        ArrayList<Disciplina> discAdd = new ArrayList<Disciplina>();
+        if (opcao == 1) {
             int opcao2 = 1;
-            while(opcao2 == 1) {
+            while (opcao2 == 1) {
                 Disciplina disciplina = this.buscaDisciplina(scanner);
 
-                if(disciplina != null) {
+                if (disciplina != null) {
                     discAdd.add(disciplina);
                     System.out.println("Disciplina adicionada!");
                 } else {
@@ -168,10 +177,10 @@ public class Secretaria extends Usuario {
                 System.out.println("\nDeseja adicionar mais disciplinas?");
                 opcao2 = scanner.nextInt();
             }
-        } else if(opcao != 2){
+        } else if (opcao != 2) {
             System.out.println("Opção desconhecida! Assumindo não.");
         }
-        
+
         this.professores.add(new Professor(nome, senha, disciplinas));
         System.out.println("\n\nProfessor adicionado!");
 
@@ -193,13 +202,13 @@ public class Secretaria extends Usuario {
     }
 
     public void menuAtualizacaoCadastros(String opcao) {
-        //Bloco comum
+        // Bloco comum
         System.out.println("Qual característica do(a) " + opcao + " será modificada?");
         System.out.println("1 - Nome do(a) " + opcao + ".");
         System.out.println("2 - Senha do(a) " + opcao + ".");
 
-        //Bloco específico
-        if(opcao.equals("aluno(a)")) {
+        // Bloco específico
+        if (opcao.equals("aluno(a)")) {
             System.out.println("3 - Matricula atual do(a) " + opcao + ".");
         } else if (opcao.equals("professor(a)")) {
             System.out.println("3 - Disciplinas que o(a) " + opcao + " leciona.");
@@ -207,7 +216,7 @@ public class Secretaria extends Usuario {
             System.out.println("3 - Nome da " + opcao);
         }
 
-        //Bloco comum final
+        // Bloco comum final
         System.out.println("0 - Sair");
     }
 
@@ -219,16 +228,13 @@ public class Secretaria extends Usuario {
 
     }
 
-    @Override
-    public void login() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void logout() {
-        // TODO Auto-generated method stub
-        
+    public ArrayList<Usuario> getUsuarios() {
+        ArrayList<Usuario> arr = new ArrayList<>();
+        arr.addAll(alunos);
+        arr.addAll(professores);
+        arr.add(this);
+        System.out.println(arr);
+        return arr;
     }
 
     // #region Leitura e Escrita
