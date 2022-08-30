@@ -38,7 +38,10 @@ public class Matricula {
 
     public void removerDisciplina(Disciplina disciplina) {
         //verificar periodo aberto
-        this.disciplinas.remove(disciplina);
+        if(this.estaEmAberto()) {
+            this.disciplinas.remove(disciplina);
+        }
+        System.out.println("Período indisponível para remover matrícula");
     }
 
     public boolean estaEmAberto() {

@@ -38,7 +38,7 @@ public class Professor extends Usuario{
     }
 
     public void verificarAlunos(Disciplina disciplina) {
-        
+        disciplina.getAlunos();
     }
 
     public void adicionarDisciplina(Disciplina disciplina) {
