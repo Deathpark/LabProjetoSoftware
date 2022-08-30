@@ -9,10 +9,17 @@ public class Aluno extends Usuario {
     }
 
     public void Matricular() {
-        
+
     }
 
     public void CancelarMatricula() {
-        
+
+    }
+
+    public boolean equals(Object o) {
+        if (o == null || !(o instanceof Aluno))
+            return false;
+        Aluno a = (Aluno) o;
+        return this.nome.equals(a.nome);
     }
 }
