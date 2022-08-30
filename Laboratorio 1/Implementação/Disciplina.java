@@ -63,4 +63,11 @@ public class Disciplina {
         
         return true;
     }
+
+    public boolean equals(Object o) {
+        if (o == null || !(o instanceof Disciplina))
+            return false;
+            Disciplina d = (Disciplina) o;
+        return this.nome.equals(d.nome);
+    }
 }
