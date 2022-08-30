@@ -32,6 +32,10 @@ public class Disciplina implements Serializable {
         this.alunos = alunos;
     }
 
+    public ArrayList<Aluno> getAlunos() {
+        return this.alunos;
+    }
+
     public String getNome() {
         return this.nome;
     }

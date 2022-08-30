@@ -1,5 +1,5 @@
 public class SistemaDeCobrança {
     public void cobrarAluno() {
-        //Acionar sistema para cobrar aluno
+        System.out.println("Sistema de cobrança ativado!");
     }
 }
