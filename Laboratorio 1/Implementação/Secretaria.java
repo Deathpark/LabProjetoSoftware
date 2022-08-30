@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Optional;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class Secretaria extends Usuario {
         escreverDados(disciplinas, ARQ_DISCIPLINAS);
     }
 
-    public void imprimirAlunos() {
+    public void visualizarTodosOsAlunos() {
         for (Aluno d : alunos) {
             System.out.println(d);
         }
@@ -246,15 +247,15 @@ public class Secretaria extends Usuario {
 
             switch (opcao) {
                 case 1:
-                    // menu disciplina
+                    // menu CRUD discipina
                     break;
                 case 2:
-                    // menu CRUD aluno
-                    break;
-                case 3:
                     // menu CRUD prof
                     break;
-                
+                case 3:
+                    menuAluno(teclado);
+                    break;
+
             }
             pausa(teclado);
             limparTela();
@@ -280,6 +281,82 @@ public class Secretaria extends Usuario {
             opcao = -1;
         }
         return opcao;
+    }
+
+    public void menuAluno(Scanner teclado) {
+        int opcao;
+        do {
+            opcao = opcoesCRUD(teclado, OpcoesSecretaria.OPCAO_MENU_ALUNO);
+
+            switch (opcao) {
+                case 1:
+                    Aluno a = getAlunoByNome(teclado);
+                    if (a != null)
+                        visualizarAluno(a);
+                    break;
+                case 2:
+                    // criar
+                    break;
+
+                case 3:
+                    // editar
+                    break;
+                case 4:
+                    Aluno excluir = getAlunoByNome(teclado);
+                    excluirAluno(excluir);
+                    break;
+                case 5:
+                    visualizarTodosOsAlunos();
+                    break;
+
+            }
+            pausa(teclado);
+            limparTela();
+        } while (opcao != 0);
+    }
+
+    private static int opcoesCRUD(Scanner teclado, OpcoesSecretaria opcaoSecretaria) {
+        limparTela();
+        System.out.println("MENU " + opcaoSecretaria.toString().toUpperCase());
+        System.out.println("Selecione a ação:");
+        System.out.println("1 - Visualizar " + opcaoSecretaria);
+        System.out.println("2 - Criar novo(a) " + opcaoSecretaria);
+        System.out.println("3 - Editar " + opcaoSecretaria);
+        System.out.println("4 - Excluir " + opcaoSecretaria);
+        System.out.println("5 - Visualizar todos(as) " + opcaoSecretaria + "s");
+        System.out.println("0 - Sair");
+
+        int opcao = 0;
+        try {
+            opcao = teclado.nextInt();
+            teclado.nextLine();
+        } catch (InputMismatchException ex) {
+            teclado.nextLine();
+            System.out.println("Somente opções numéricas.");
+            opcao = -1;
+        }
+        return opcao;
+    }
+
+    private Aluno getAlunoByNome(Scanner teclado) {
+        Optional<Aluno> aluno;
+        boolean erro = false;
+
+        do {
+            System.out.println("Digite o nome. Deixe em branco para sair");
+            String nome = teclado.nextLine();
+            aluno = alunos.stream().filter(a -> a.nome.equals(nome)).findAny();
+            if (aluno.isEmpty() && !nome.equals("")) {
+                erro = true;
+                System.out.println("Esse aluno não existe! Tente novamente.");
+            } else
+                erro = false;
+        } while (erro);
+
+        if (aluno.isPresent()) {
+            return aluno.get();
+        }
+        return null;
     }
 
     // #endregion
