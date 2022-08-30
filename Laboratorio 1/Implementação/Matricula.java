@@ -1,17 +1,19 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Matricula {
+public class Matricula implements Serializable {
     private Date dataInicio;
     private Date dataFim;
     private Aluno aluno;
     private ArrayList<Disciplina> disciplinas;
     private double mensalidade;
+    static final long serialVersionUID = 5;
 
     public Matricula() {
         this.dataInicio = new Date();
         this.dataFim = new Date();
-        this.aluno = new Aluno();
+        // this.aluno = new Aluno();
         this.disciplinas = new ArrayList<Disciplina>();
         this.mensalidade = 0.0;
     }

@@ -1,8 +1,10 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Disciplina {
+public class Disciplina implements Serializable {
     private static final int MAX_ALUNOS = 60;
     private static final int MIN_ALUNOS = 3;
+    static final long serialVersionUID = 4;
 
     private String nome;
     private boolean estaAtiva;
@@ -64,10 +66,16 @@ public class Disciplina {
         return true;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o == null || !(o instanceof Disciplina))
             return false;
             Disciplina d = (Disciplina) o;
         return this.nome.equals(d.nome);
+    }
+
+    @Override
+    public String toString() {
+        return nome ;
     }
 }
