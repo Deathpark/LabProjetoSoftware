@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -10,9 +9,10 @@ public class App {
 
         // inicializar o programa:
         Secretaria s = Secretaria.getInstance();
-
+        // login
         Usuario usuarioAtual = menuLogin(teclado);
         System.out.println(usuarioAtual);
+        usuarioAtual.menu(teclado);
 
         // teste
         // System.out.println("Aluno teste:");
@@ -24,38 +24,8 @@ public class App {
 
         // quando encerrar o programa:
         s.salvar();
+        usuarioAtual.logout();
         teclado.close();
-    }
-
-    // #region Métodos do MENU
-    public static void limparTela() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    static void pausa(Scanner teclado) {
-        System.out.println("Enter para continuar.");
-        teclado.nextLine();
-    }
-
-    public static int menu(Scanner teclado) {
-        limparTela();
-        System.out.println("SISTEMA");
-        System.out.println("Selecione o tipo de usuário:");
-        System.out.println("1 - Secretaria");
-        System.out.println("2 - Professor");
-        System.out.println("3 - Aluno");
-
-        int opcao = 0;
-        try {
-            opcao = teclado.nextInt();
-            teclado.nextLine();
-        } catch (InputMismatchException ex) {
-            teclado.nextLine();
-            System.out.println("Somente opções numéricas.");
-            opcao = -1;
-        }
-        return opcao;
     }
 
     public static Usuario menuLogin(Scanner teclado) {

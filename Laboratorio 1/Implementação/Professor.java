@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Professor extends Usuario{
     private ArrayList<Disciplina> disciplinas;
@@ -53,5 +54,7 @@ public class Professor extends Usuario{
         }
     }
 
+    public void menu(Scanner teclado) {
 
+    }
 }

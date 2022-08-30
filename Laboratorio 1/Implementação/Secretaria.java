@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class Secretaria extends Usuario {
     }
 
     private Secretaria() {
-        super("nome", "senha");
+        super("secretaria", "senha");
         this.alunos = lerDados(ARQ_ALUNOS);
         this.disciplinas = lerDados(ARQ_DISCIPLINAS);
         this.professores = lerDados(ARQ_PROFESSORES);
@@ -233,9 +234,55 @@ public class Secretaria extends Usuario {
         arr.addAll(alunos);
         arr.addAll(professores);
         arr.add(this);
-        System.out.println(arr);
         return arr;
     }
+
+    // #region menu
+
+    public void menu(Scanner teclado) {
+        int opcao;
+        do {
+            opcao = opcoes(teclado);
+
+            switch (opcao) {
+                case 1:
+                    // menu disciplina
+                    break;
+                case 2:
+                    // menu CRUD aluno
+                    break;
+                case 3:
+                    // menu CRUD prof
+                    break;
+                
+            }
+            pausa(teclado);
+            limparTela();
+        } while (opcao != 0);
+    }
+
+    private static int opcoes(Scanner teclado) {
+        limparTela();
+        System.out.println("MENU SECRETARIA");
+        System.out.println("Selecione o que gerenciar:");
+        System.out.println("1 - Disciplina");
+        System.out.println("2 - Professor");
+        System.out.println("3 - Aluno");
+        System.out.println("0 - Sair");
+
+        int opcao = 0;
+        try {
+            opcao = teclado.nextInt();
+            teclado.nextLine();
+        } catch (InputMismatchException ex) {
+            teclado.nextLine();
+            System.out.println("Somente opções numéricas.");
+            opcao = -1;
+        }
+        return opcao;
+    }
+
+    // #endregion
 
     // #region Leitura e Escrita
     public static <T> void escreverDados(ArrayList<T> dados, String nomeArq) {
@@ -277,4 +324,5 @@ public class Secretaria extends Usuario {
 
         return dados;
     }
+    // #endregion
 }

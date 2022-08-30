@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Aluno extends Usuario {
     private ArrayList<Matricula> historico;
@@ -22,5 +23,9 @@ public class Aluno extends Usuario {
             return false;
         Aluno a = (Aluno) o;
         return this.nome.equals(a.nome);
+    }
+
+    public void menu(Scanner teclado) {
+
     }
 }

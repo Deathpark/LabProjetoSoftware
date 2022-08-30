@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.Scanner;
 
 public abstract class Usuario implements Serializable {
     protected String nome;
@@ -15,11 +16,25 @@ public abstract class Usuario implements Serializable {
     }
 
     public void logout() {
-
+        System.out.println("Você está deslogado.");
     }
 
     @Override
     public String toString() {
         return nome;
     }
+
+    //#region menu
+    public static void limparTela() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    static void pausa(Scanner teclado) {
+        System.out.println("Enter para continuar.");
+        teclado.nextLine();
+    }
+
+    abstract public void menu(Scanner teclado);
+    //#endregion
 }
