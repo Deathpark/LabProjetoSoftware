@@ -1,12 +1,8 @@
-public abstract class Usuario {
+abstract public class Usuario {
     protected String nome;
     protected String senha;
 
-    public void login() {
+    public abstract void login();
 
-    }
-
-    public void logout() {
-        
-    }        
+    public abstract void logout();
 }
