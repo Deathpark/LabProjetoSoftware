@@ -8,5 +8,10 @@ public class Curso implements Serializable {
     private ArrayList<Disciplina> disciplinas;
     static final long serialVersionUID = 3;
 
-    
+    public Curso() {
+        this.numCreditos = 0;
+        this.nome = "";
+        this.codigo = 0;
+        this.disciplinas = new ArrayList<Disciplina>();
+    }    
 }

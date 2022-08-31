@@ -25,8 +25,13 @@ public class Aluno extends Usuario {
         this.senha = senha;
     }
 
-    public void matricular() {
-        
+
+    public Matricula getMatricula() {
+        return this.matriculaAtual;
+    }
+
+    public void Matricular() {
+
     }
 
     public void cancelarMatricula() {
@@ -34,14 +39,6 @@ public class Aluno extends Usuario {
             matriculaAtual = null;
             System.out.println("Matricula cancelada");
         }
-    }
-
-    public void adicionarDisciplina(Disciplina disciplina) {
-
-    }
-
-    public void removerDisciplina(Disciplina disciplina) {
-
     }
 
     @Override

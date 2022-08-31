@@ -1,25 +1,26 @@
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 public class Matricula implements Serializable {
-    private Calendar dataInicio;
-    private Calendar dataFim;
+    private LocalDate dataInicio;
+    private LocalDate dataFim;
     private Aluno aluno;
     private ArrayList<Disciplina> disciplinas;
     private double mensalidade;
     static final long serialVersionUID = 5;
 
     public Matricula() {
-        this.dataInicio = Calendar.getInstance();
-        this.dataFim = Calendar.getInstance();
+        this.dataInicio = LocalDate.now();
+        this.dataFim = LocalDate.now();
         // this.aluno = new Aluno();
         this.disciplinas = new ArrayList<Disciplina>();
         this.mensalidade = 0.0;
     }
 
-    public Matricula(Calendar dataInicio, Calendar dataFim, Aluno aluno, ArrayList<Disciplina> disciplinas, double mensalidade) {
+    public Matricula(LocalDate dataInicio, LocalDate dataFim, Aluno aluno, ArrayList<Disciplina> disciplinas, double mensalidade) {
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.aluno = aluno;
@@ -27,7 +28,7 @@ public class Matricula implements Serializable {
         this.mensalidade = mensalidade;
     }
 
-    public Matricula(Calendar dataInicio, Aluno aluno, ArrayList<Disciplina> disciplinas, double mensalidade) {
+    public Matricula(LocalDate dataInicio, Aluno aluno, ArrayList<Disciplina> disciplinas, double mensalidade) {
         this.dataInicio = dataInicio;
         this.dataFim = null;
         this.aluno = aluno;
@@ -36,26 +37,29 @@ public class Matricula implements Serializable {
     }
 
     public void adicionarDisciplina(Disciplina disciplina) {
-        this.disciplinas.add(disciplina);
+        if(this.estaEmAberto()) {
+            this.disciplinas.add(disciplina);
+        } else {
+            System.out.println("Período indisponível para adicionar disciplina");
+        }
     }
 
     public void removerDisciplina(Disciplina disciplina) {
         if(this.estaEmAberto()) {
             this.disciplinas.remove(disciplina);
+        } else {
+            System.out.println("Período indisponível para remover matrícula");
         }
-        System.out.println("Período indisponível para remover matrícula");
     }
 
 
     public boolean estaEmAberto() {
-        Calendar cal = Calendar.getInstance();            
-        int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);          
-        int month = cal.get(Calendar.MONTH);     
+        LocalDate date = LocalDate.now();         
+        int dayOfMonth = date.getDayOfMonth();     
+        int month = date.getMonthValue();    
              
-        if (this.dataInicio.DAY_OF_MONTH <= dayOfMonth && this.dataInicio.MONTH <= month) {           
+        if (this.dataInicio.getDayOfMonth() < dayOfMonth && this.dataInicio.getMonthValue() <= month) {           
             return true;            
-        } else if (this.dataFim.DAY_OF_MONTH >= dayOfMonth && this.dataFim.MONTH >= month) {            
-            return true;          
         } else {           
             return false;           
         }          
