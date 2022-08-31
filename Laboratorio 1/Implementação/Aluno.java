@@ -9,11 +9,35 @@ public class Aluno extends Usuario {
         super(nome, senha);
     }
 
+    public String getNome() {
+        return this.nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
+    public String getSenha() {
+        return this.senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
     public void Matricular() {
 
     }
 
     public void CancelarMatricula() {
+
+    }
+
+    public void adicionarDisciplina(Disciplina disciplina) {
+
+    }
+
+    public void removerDisciplina(Disciplina disciplina) {
 
     }
 

@@ -18,7 +18,6 @@ public class Secretaria extends Usuario {
     private String ARQ_DISCIPLINAS = "./arquivos/disciplinas.bin";
     private static final String OPCAO_MENU_PROFESSOR = "professor(a)";
     private static final String OPCAO_MENU_ALUNO = "aluno(a)";
-    private static final String OPCAO_MENU_DISCIPLINA = "disciplina";
     private static Secretaria secretaria = new Secretaria();
 
     public static Secretaria getInstance() {
@@ -42,18 +41,134 @@ public class Secretaria extends Usuario {
 
     }
 
-    public Disciplina criarDisciplina(String nome, boolean estaAtiva, boolean obrigatoria) {
-        Disciplina d = new Disciplina(nome, estaAtiva, obrigatoria);
-        disciplinas.add(d);
-        return d;
+    public void criarDisciplina(Scanner scanner) {
+        System.out.println("Digite o nome da disciplina:");
+        String nome = scanner.nextLine();
+        System.out.println("Digite se a disciplina é obrigatória: (S/N)");
+        String obrigatoria = scanner.nextLine().toUpperCase();
+
+        Aluno disciplinaExiste = this.alunos.stream().filter(a -> a.getNome().equals(nome)).findFirst().get();
+
+        boolean obr;
+        switch(obrigatoria) {
+            case "S":
+                obr = true;
+                break;
+            case "N":
+                obr = false;
+                break;
+            default:
+                System.out.println("Opção desconhecida. Assumindo Não.");
+                obr = false;
+                break;
+        }
+
+        if(disciplinaExiste != null) {
+            System.out.println("Já existe uma disciplina com este nome!");
+        } else {
+            this.disciplinas.add(new Disciplina(nome, obr));
+            System.out.println("\n\nDisciplina adicionada!");
+        }
     }
 
-    public void atualizarDisciplina(Disciplina disciplina) {
+    public void atualizarDisciplina(Disciplina disciplina, Scanner scanner) {
+        this.menuAtualizacaoDisciplina();
+        int opcao = scanner.nextInt();
 
-    }
+        while (opcao != 0) {
+            switch (opcao) {
+                case 1:
+                    System.out.println("Digite o novo nome da disciplina:");
+                    disciplina.setNome(scanner.nextLine());
+                    System.out.println("Nome modificado com sucesso!\n\n");
+                    break;
+                case 2:
+                    System.out.println("Digite a nova obrigatoriedade da disciplina: (S/N)");
+                    String obr = scanner.nextLine().toUpperCase();
 
-    public void visualizarDisciplina(Disciplina disciplina) {
-        System.out.println(disciplina.toString());
+                    if(obr.equals("S")) {
+                        disciplina.setObrigatoria(true);
+                    } else {
+                        if(!obr.equals("N")) {
+                            System.out.println("Opção desconhecida, assumindo Não.");
+                        }
+                        disciplina.setObrigatoria(false);
+                    }
+                    break;
+                case 3:
+                    int qntAlunos = disciplina.getQntNumAlunos();
+                    if(qntAlunos < disciplina.getNumMinAlunos()) {
+                        System.out.println("Disciplina com número de alunos inferior ao mínimo.");
+                        System.out.println("Deseja inativar a disciplina? (S/N)");
+                        String opcao2 = scanner.nextLine().toUpperCase();
+                        
+                        if(opcao2.equals("S")) {
+                            disciplina.setObrigatoria(true);    
+                        } else {
+                            if(!opcao2.equals("N")) {
+                                System.out.println("Opção desconheciaa, assumindo Não.");
+                            }
+                            disciplina.setObrigatoria(false);    
+                        }
+                    } else if(qntAlunos == disciplina.getNumMaxAlunos()) {
+                        System.out.println("Disciplina com a capacidade máxima de alunos!");
+                        System.out.println("A quantidade de alunos é: " + qntAlunos);
+                    } else {
+                        System.out.println("A disciplina está com: " + qntAlunos);
+                    }
+                    break;
+                case 4:
+                    int opcao2 = 1;
+                    while(opcao2 == 1 || opcao2 == 2 || opcao2 == 3) {
+                        System.out.println("Qual operação deseja realizar?");
+                        System.out.println("1 - Adicionar aluno");
+                        System.out.println("2 - Remover aluno");
+                        System.out.println("2 - Remover todos os alunos da disciplina");
+                        
+                        switch(opcao2) {
+                            case 1:
+                                if(disciplina.validarNumALunos()) {
+                                    Aluno aluno = this.getAlunoByNome(scanner);
+                                    
+                                    if(aluno != null) {
+                                        disciplina.adicionarAluno(aluno);
+                                    }
+                                } else {
+                                    System.out.println("A disciplina não pode receber novos alunos.");
+                                }
+                                break;
+                            case 2:
+                                Aluno aluno = this.getAlunoByNome(scanner);
+                                
+                                if(aluno != null) {
+                                    disciplina.removerAluno(aluno);
+                                }
+                                break;
+                            case 3:
+                                System.out.println("Deseja realmente remover todos os alunos da disciplina? (S/N)");
+                                String opcao3 = scanner.nextLine().toUpperCase();
+
+                                if(opcao3.equals("S")) {
+                                    disciplina.removerTodosAlunos();
+                                } else {
+                                    if(!opcao3.equals("N")) {
+                                        System.out.println("Opção desconhecida, assumindo Não.");
+                                    }
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    break;
+                default:
+                    System.out.println("Opção desconhecida! Assumindo sair.");
+                    opcao = 0;
+                    break;
+            }
+
+            this.menuAtualizacaoDisciplina();
+        }
     }
 
     public void excluirDisciplina(Disciplina disciplina) {
@@ -66,27 +181,78 @@ public class Secretaria extends Usuario {
         }
     }
 
-    public void visualizarTodosOsAlunos() {
-        for (Aluno d : alunos) {
-            System.out.println(d);
+    public void visualizarDisciplina(Disciplina disciplina) {
+        System.out.println(disciplina.toString());
+    }
+    
+    public void visualizarTodasAsDisciplinas() {
+        this.disciplinas.stream().forEach((disciplina) -> {
+            System.out.println(disciplina);
+        });
+    }
+
+    // #region aluno
+    public void atualizarAluno(Aluno aluno, Scanner scanner) {
+        this.menuAtualizacaoCadastros(OPCAO_MENU_ALUNO);
+        int opcao = scanner.nextInt();
+
+        while (opcao != 0) {
+            switch (opcao) {
+                case 1:
+                    System.out.println("Digite o novo nome do(a) Aluno(a):");
+                    aluno.setNome(scanner.nextLine());
+                    System.out.println("Nome modificado com sucesso!\n\n");
+                    break;
+                case 2:
+                    System.out.println("Digite a nova senha do(a) Aluno(a):");
+                    aluno.setSenha(scanner.nextLine());
+                    break;
+                case 3:
+                    System.out.println("Matrícula atual do aluno, você deseja:");
+                    int opcao2 = 1;
+                    while (opcao2 == 1 || opcao2 == 2) {
+                        System.out.println("1 - Adicionar disciplina | 2 - Remover disciplina");
+                        System.out.println("Digite qualquer outro número para finalizar.");
+                        opcao2 = scanner.nextInt();
+
+                        if (opcao2 == 1) {
+                            Disciplina disciplina = this.buscaDisciplina(scanner);
+
+                            if (disciplina != null) {
+                                aluno.adicionarDisciplina(disciplina);
+                                System.out.println("Disciplina adicionada com sucesso!");
+                            } else {
+                                System.out.println("Disciplina não encontrada!");
+                            }
+                        } else if (opcao2 == 2) {
+                            aluno.removerDisciplina(this.buscaDisciplina(scanner));
+                        }
+                    }
+                    break;
+                default:
+                    System.out.println("Opção desconhecida! Assumindo sair.");
+                    opcao = 0;
+                    break;
+            }
+
+            this.menuAtualizacaoCadastros(OPCAO_MENU_ALUNO);
         }
     }
 
-    public void atualizarAluno(Aluno aluno) {
-        int resposta = 1;
-        while (resposta > 0) {
-        }
-        Aluno alunoAux = this.alunos.stream().filter(a -> a.equals(aluno)).findFirst().get();
-    }
+    public void criarAluno(Scanner scanner) {
+        System.out.println("Digite o nome do Aluno(a):");
+        String nome = scanner.nextLine();
+        System.out.println("Digite a senha do Aluno(a):");
+        String senha = scanner.nextLine();
 
-    public Aluno criarAluno(String nome, String senha) {
-        if (nome.equals("")) {
-            return null;
-        }
-        Aluno a = new Aluno(nome, senha);
-        alunos.add(a);
-        return a;
+        Aluno alunoExiste = this.alunos.stream().filter(a -> a.getNome().equals(nome)).findFirst().get();
 
+        if(alunoExiste != null) {
+            System.out.println("Já existe um aluno com este nome!");
+        } else {
+            this.alunos.add(new Aluno(nome, senha));
+            System.out.println("\n\nAluno(a) adicionado(a)!");
+        }
     }
 
     public void excluirAluno(Aluno aluno) {
@@ -101,6 +267,12 @@ public class Secretaria extends Usuario {
 
     public void visualizarAluno(Aluno aluno) {
         System.out.println(aluno.toString());
+    }
+
+    public void visualizarTodosOsAlunos() {
+        this.alunos.stream().forEach((aluno) -> {
+            System.out.println(aluno);
+        });
     }
 
     // #region professor
@@ -183,10 +355,7 @@ public class Secretaria extends Usuario {
         }
 
         this.professores.add(new Professor(nome, senha, disciplinas));
-        System.out.println("\n\nProfessor adicionado!");
-
-
-
+        System.out.println("\n\nProfessor(a) adicionado(a)!");
     }
 
     public void excluirProfessor(Professor professor) {
@@ -204,9 +373,9 @@ public class Secretaria extends Usuario {
     }
 
     public void visualizarTodosOsProfessores() {
-        for (Professor p : professores) {
-            System.out.println(p);
-        }
+        this.professores.stream().forEach((professor) -> {
+            System.out.println(professor);
+        });
     }
 
     // #endregion
@@ -222,11 +391,18 @@ public class Secretaria extends Usuario {
             System.out.println("3 - Matricula atual do(a) " + opcao + ".");
         } else if (opcao.equals("professor(a)")) {
             System.out.println("3 - Disciplinas que o(a) " + opcao + " leciona.");
-        } else if (opcao.equals("disciplina")) {
-            System.out.println("3 - Nome da " + opcao);
         }
 
         // Bloco comum final
+        System.out.println("0 - Sair");
+    }
+
+    public void menuAtualizacaoDisciplina() {
+        System.out.println("Qual característica da disciplina será modificada?");
+        System.out.println("1 - Nome da disciplina.");
+        System.out.println("2 - Obrigatoriedade da disciplina.");
+        System.out.println("3 - Verificar quantidade de alunos da disciplina.");
+        System.out.println("4 - Atualizar alunos da disciplina.");
         System.out.println("0 - Sair");
     }
 

@@ -18,6 +18,13 @@ public class Disciplina implements Serializable {
         this.alunos = new ArrayList<Aluno>();
     }
 
+    public Disciplina(String nome, boolean obrigatoria) {
+        this.nome = nome;
+        this.estaAtiva = true;
+        this.obrigatoria = obrigatoria;
+        this.alunos = new ArrayList<Aluno>();
+    }
+
     public Disciplina(String nome, boolean estaAtiva, boolean obrigatoria) {
         this.nome = nome;
         this.estaAtiva = estaAtiva;
@@ -34,6 +41,14 @@ public class Disciplina implements Serializable {
 
     public ArrayList<Aluno> getAlunos() {
         return this.alunos;
+    }
+
+    public int getNumMinAlunos() {
+        return MIN_ALUNOS;
+    }
+
+    public int getNumMaxAlunos() {
+        return MAX_ALUNOS;
     }
 
     public String getNome() {
@@ -61,7 +76,7 @@ public class Disciplina implements Serializable {
     }
 
     public boolean validarNumALunos() {
-        int tamAlunos = this.alunos.size();
+        int tamAlunos = this.getQntNumAlunos();
         
         if(tamAlunos == MAX_ALUNOS) {
             return false;
@@ -69,7 +84,30 @@ public class Disciplina implements Serializable {
         
         return true;
     }
+    
+    public int getQntNumAlunos() {
+        return this.alunos.size();
+    }
 
+    
+    public void adicionarAluno(Aluno aluno) {
+        this.alunos.add(aluno);
+    }
+    
+    public void removerAluno(Aluno aluno) {
+        boolean removeu = this.alunos.removeIf(a -> a.equals(aluno));
+
+        if(removeu) {
+            System.out.println("Aluno removido com sucesso!");
+        } else {
+            System.out.println("Aluno não encontrado! Nenhum aluno foi removido");
+        }
+    }
+
+    public void removerTodosAlunos() {
+        this.alunos.removeAll(this.alunos);
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (o == null || !(o instanceof Disciplina))
