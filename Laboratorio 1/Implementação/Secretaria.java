@@ -464,6 +464,10 @@ public class Secretaria extends Usuario {
         return arr;
     }
 
+    public ArrayList<Disciplina> getDisciplinas() {
+        return disciplinas;
+    }
+
     // #region menu
 
     public void menu(Scanner teclado) {

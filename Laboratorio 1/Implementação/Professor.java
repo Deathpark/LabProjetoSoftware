@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Professor extends Usuario {
@@ -37,8 +39,21 @@ public class Professor extends Usuario {
         this.senha = senha;
     }
 
-    public void verificarAlunos(Disciplina disciplina) {
-        disciplina.getAlunos();
+    public void verificarAlunos() {
+        Optional<Disciplina> disciplina;
+        Secretaria s = Secretaria.getInstance();
+        ArrayList<Disciplina> disciplinas = s.getDisciplinas();
+
+        System.out.println("Digite o nome da disciplina. Deixe em branco para sair");
+        String nome = teclado.nextLine();
+        disciplina = disciplinas.stream().filter(a -> a.getNome().equals(nome)).findAny();
+        if (disciplina.isEmpty() && !nome.equals("")) {
+            System.out.println("Essa disciplina não existe!");
+        }
+        else {
+            System.out.println(disciplina.get().getAlunos());
+        }
+
     }
 
     public void adicionarDisciplina(Disciplina disciplina) {
@@ -55,8 +70,38 @@ public class Professor extends Usuario {
         }
     }
 
-
     public void menu(Scanner teclado) {
+        int opcao;
+        do {
+            opcao = opcoes(teclado);
 
+            switch (opcao) {
+                case 1:
+                    verificarAlunos();
+                    break;
+
+            }
+            pausa(teclado);
+            limparTela();
+        } while (opcao != 0);
+
+    }
+
+    private static int opcoes(Scanner teclado) {
+
+        limparTela();
+        System.out.println("MENU PROFESSOR");
+        System.out.println("1 -Verificar alunos em disciplina");
+
+        int opcao = 0;
+        try {
+            opcao = teclado.nextInt();
+            teclado.nextLine();
+        } catch (InputMismatchException ex) {
+            teclado.nextLine();
+            System.out.println("Somente opções numéricas.");
+            opcao = -1;
+        }
+        return opcao;
     }
 }
