@@ -16,7 +16,7 @@ public class Aluno extends Usuario {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
+
     public String getSenha() {
         return this.senha;
     }
@@ -24,6 +24,7 @@ public class Aluno extends Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
 
     public Matricula getMatricula() {
         return this.matriculaAtual;
@@ -33,8 +34,11 @@ public class Aluno extends Usuario {
 
     }
 
-    public void CancelarMatricula() {
-
+    public void cancelarMatricula() {
+        if (matriculaAtual != null) {
+            matriculaAtual = null;
+            System.out.println("Matricula cancelada");
+        }
     }
 
     @Override

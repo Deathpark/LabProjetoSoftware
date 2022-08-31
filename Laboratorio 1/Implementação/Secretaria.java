@@ -63,6 +63,7 @@ public class Secretaria extends Usuario {
         Semestre semestre = new Semestre(codigo, disciplinasAdicionar);
     }
 
+    // #region disciplina
     public void criarDisciplina(Scanner scanner) {
         System.out.println("Digite o nome da disciplina:");
         String nome = scanner.nextLine();
@@ -72,7 +73,7 @@ public class Secretaria extends Usuario {
         Optional<Disciplina> disciplinaExiste = this.disciplinas.stream().filter(d -> d.getNome().equals(nome)).findFirst();
 
         boolean obr;
-        switch(obrigatoria) {
+        switch (obrigatoria) {
             case "S":
                 obr = true;
                 break;
@@ -108,10 +109,10 @@ public class Secretaria extends Usuario {
                     System.out.println("Digite a nova obrigatoriedade da disciplina: (S/N)");
                     String obr = scanner.nextLine().toUpperCase();
 
-                    if(obr.equals("S")) {
+                    if (obr.equals("S")) {
                         disciplina.setObrigatoria(true);
                     } else {
-                        if(!obr.equals("N")) {
+                        if (!obr.equals("N")) {
                             System.out.println("Opção desconhecida, assumindo Não.");
                         }
                         disciplina.setObrigatoria(false);
@@ -119,20 +120,20 @@ public class Secretaria extends Usuario {
                     break;
                 case 3:
                     int qntAlunos = disciplina.getQntNumAlunos();
-                    if(qntAlunos < disciplina.getNumMinAlunos()) {
+                    if (qntAlunos < disciplina.getNumMinAlunos()) {
                         System.out.println("Disciplina com número de alunos inferior ao mínimo.");
                         System.out.println("Deseja inativar a disciplina? (S/N)");
                         String opcao2 = scanner.nextLine().toUpperCase();
-                        
-                        if(opcao2.equals("S")) {
-                            disciplina.setObrigatoria(true);    
+
+                        if (opcao2.equals("S")) {
+                            disciplina.setObrigatoria(true);
                         } else {
-                            if(!opcao2.equals("N")) {
+                            if (!opcao2.equals("N")) {
                                 System.out.println("Opção desconheciaa, assumindo Não.");
                             }
-                            disciplina.setObrigatoria(false);    
+                            disciplina.setObrigatoria(false);
                         }
-                    } else if(qntAlunos == disciplina.getNumMaxAlunos()) {
+                    } else if (qntAlunos == disciplina.getNumMaxAlunos()) {
                         System.out.println("Disciplina com a capacidade máxima de alunos!");
                         System.out.println("A quantidade de alunos é: " + qntAlunos);
                     } else {
@@ -141,18 +142,18 @@ public class Secretaria extends Usuario {
                     break;
                 case 4:
                     int opcao2 = 1;
-                    while(opcao2 == 1 || opcao2 == 2 || opcao2 == 3) {
+                    while (opcao2 == 1 || opcao2 == 2 || opcao2 == 3) {
                         System.out.println("Qual operação deseja realizar?");
                         System.out.println("1 - Adicionar aluno");
                         System.out.println("2 - Remover aluno");
                         System.out.println("2 - Remover todos os alunos da disciplina");
-                        
-                        switch(opcao2) {
+
+                        switch (opcao2) {
                             case 1:
-                                if(disciplina.validarNumALunos()) {
+                                if (disciplina.validarNumALunos()) {
                                     Aluno aluno = this.getAlunoByNome(scanner);
-                                    
-                                    if(aluno != null) {
+
+                                    if (aluno != null) {
                                         disciplina.adicionarAluno(aluno);
                                     }
                                 } else {
@@ -161,8 +162,8 @@ public class Secretaria extends Usuario {
                                 break;
                             case 2:
                                 Aluno aluno = this.getAlunoByNome(scanner);
-                                
-                                if(aluno != null) {
+
+                                if (aluno != null) {
                                     disciplina.removerAluno(aluno);
                                 }
                                 break;
@@ -170,10 +171,10 @@ public class Secretaria extends Usuario {
                                 System.out.println("Deseja realmente remover todos os alunos da disciplina? (S/N)");
                                 String opcao3 = scanner.nextLine().toUpperCase();
 
-                                if(opcao3.equals("S")) {
+                                if (opcao3.equals("S")) {
                                     disciplina.removerTodosAlunos();
                                 } else {
-                                    if(!opcao3.equals("N")) {
+                                    if (!opcao3.equals("N")) {
                                         System.out.println("Opção desconhecida, assumindo Não.");
                                     }
                                 }
@@ -206,12 +207,14 @@ public class Secretaria extends Usuario {
     public void visualizarDisciplina(Disciplina disciplina) {
         System.out.println(disciplina.toString());
     }
-    
+
     public void visualizarTodasAsDisciplinas() {
         this.disciplinas.stream().forEach((disciplina) -> {
             System.out.println(disciplina);
         });
     }
+
+    // #endregion
 
     // #region aluno
     public void atualizarAluno(Aluno aluno, Scanner scanner) {
@@ -269,7 +272,7 @@ public class Secretaria extends Usuario {
 
         Aluno alunoExiste = this.alunos.stream().filter(a -> a.getNome().equals(nome)).findFirst().get();
 
-        if(alunoExiste != null) {
+        if (alunoExiste != null) {
             System.out.println("Já existe um aluno com este nome!");
         } else {
             this.alunos.add(new Aluno(nome, senha));
@@ -296,6 +299,8 @@ public class Secretaria extends Usuario {
             System.out.println(aluno);
         });
     }
+
+    // #endregion
 
     // #region professor
 
@@ -453,7 +458,7 @@ public class Secretaria extends Usuario {
 
             switch (opcao) {
                 case 1:
-                    // menu CRUD discipina
+                    menuDisciplina(teclado);
                     break;
                 case 2:
                     menuProfessor(teclado);
@@ -525,25 +530,61 @@ public class Secretaria extends Usuario {
 
     private void menuAluno(Scanner teclado) {
         int opcao;
+        Aluno a;
         do {
             opcao = opcoesCRUD(teclado, OpcoesSecretaria.OPCAO_MENU_ALUNO);
 
             switch (opcao) {
                 case 1:
-                    Aluno a = getAlunoByNome(teclado);
+                    a = getAlunoByNome(teclado);
                     if (a != null)
                         visualizarAluno(a);
                     break;
                 case 2:
-                    // criar
+                    criarAluno(teclado);
                     break;
 
                 case 3:
-                    // editar
+                    a = getAlunoByNome(teclado);
+                    if (a != null)
+                        atualizarAluno(a, teclado);
                     break;
                 case 4:
-                    Aluno excluir = getAlunoByNome(teclado);
-                    excluirAluno(excluir);
+                    a = getAlunoByNome(teclado);
+                    excluirAluno(a);
+                    break;
+                case 5:
+                    visualizarTodosOsAlunos();
+                    break;
+
+            }
+            pausa(teclado);
+            limparTela();
+        } while (opcao != 0);
+    }
+
+    private void menuDisciplina(Scanner teclado) {
+        int opcao;
+        Disciplina disciplina;
+        do {
+            opcao = opcoesCRUD(teclado, OpcoesSecretaria.OPCAO_MENU_DISCIPLINA);
+            switch (opcao) {
+                case 1:
+                    disciplina = getDisciplinaByNome(teclado);
+                    if (disciplina != null)
+                        visualizarDisciplina(disciplina);
+                    break;
+                case 2:
+                    criarDisciplina(teclado);
+                    break;
+                case 3:
+                    disciplina = getDisciplinaByNome(teclado);
+                    if (disciplina != null)
+                        atualizarDisciplina(disciplina, teclado);
+                    break;
+                case 4:
+                    disciplina = getDisciplinaByNome(teclado);
+                    excluirDisciplina(disciplina);
                     break;
                 case 5:
                     visualizarTodosOsAlunos();
@@ -588,7 +629,7 @@ public class Secretaria extends Usuario {
         do {
             System.out.println("Digite o nome. Deixe em branco para sair");
             String nome = teclado.nextLine();
-            aluno = alunos.stream().filter(a -> a.nome.equals(nome)).findAny();
+            aluno = alunos.stream().filter(a -> a.getNome().equals(nome)).findAny();
             if (aluno.isEmpty() && !nome.equals("")) {
                 erro = true;
                 System.out.println("Esse aluno não existe! Tente novamente.");
@@ -609,7 +650,7 @@ public class Secretaria extends Usuario {
         do {
             System.out.println("Digite o nome. Deixe em branco para sair");
             String nome = teclado.nextLine();
-            prof = professores.stream().filter(a -> a.nome.equals(nome)).findAny();
+            prof = professores.stream().filter(a -> a.getNome().equals(nome)).findAny();
             if (prof.isEmpty() && !nome.equals("")) {
                 erro = true;
                 System.out.println("Esse professor não existe! Tente novamente.");
@@ -619,6 +660,27 @@ public class Secretaria extends Usuario {
 
         if (prof.isPresent()) {
             return prof.get();
+        }
+        return null;
+    }
+
+    private Disciplina getDisciplinaByNome(Scanner teclado) {
+        Optional<Disciplina> disciplina;
+        boolean erro = false;
+
+        do {
+            System.out.println("Digite o nome. Deixe em branco para sair");
+            String nome = teclado.nextLine();
+            disciplina = disciplinas.stream().filter(a -> a.getNome().equals(nome)).findAny();
+            if (disciplina.isEmpty() && !nome.equals("")) {
+                erro = true;
+                System.out.println("Essa disciplina não existe! Tente novamente.");
+            } else
+                erro = false;
+        } while (erro);
+
+        if (disciplina.isPresent()) {
+            return disciplina.get();
         }
         return null;
     }
