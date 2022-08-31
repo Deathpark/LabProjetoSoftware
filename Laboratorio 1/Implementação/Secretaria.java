@@ -270,9 +270,9 @@ public class Secretaria extends Usuario {
         System.out.println("Digite a senha do Aluno(a):");
         String senha = scanner.nextLine();
 
-        Aluno alunoExiste = this.alunos.stream().filter(a -> a.getNome().equals(nome)).findFirst().get();
+        Optional<Aluno> alunoExiste = this.alunos.stream().filter(a -> a.getNome().equals(nome)).findFirst();
 
-        if (alunoExiste != null) {
+        if (alunoExiste.isPresent()) {
             System.out.println("Já existe um aluno com este nome!");
         } else {
             this.alunos.add(new Aluno(nome, senha));
@@ -357,32 +357,39 @@ public class Secretaria extends Usuario {
         String nome = scanner.nextLine();
         System.out.println("Digite a senha do Professor:");
         String senha = scanner.nextLine();
-        System.out.println("Deseja adicionar disciplinas para este novo professor?");
-        System.out.println("1 - Sim | 2 - Não");
-        int opcao = scanner.nextInt();
 
-        ArrayList<Disciplina> discAdd = new ArrayList<Disciplina>();
-        if (opcao == 1) {
-            int opcao2 = 1;
-            while (opcao2 == 1) {
-                Disciplina disciplina = this.buscaDisciplina(scanner);
+        Optional<Professor> professorExiste = this.professores.stream().filter(p -> p.getNome().equals(nome)).findFirst();
 
-                if (disciplina != null) {
-                    discAdd.add(disciplina);
-                    System.out.println("Disciplina adicionada!");
-                } else {
-                    System.out.println("Disicplina não encontrada!");
+        if(professorExiste.isPresent()) {
+            System.out.println("Já existe um professor com este nome!");
+        } else {
+            System.out.println("Deseja adicionar disciplinas para este novo professor?");
+            System.out.println("1 - Sim | 2 - Não");
+            int opcao = scanner.nextInt();
+    
+            ArrayList<Disciplina> discAdd = new ArrayList<Disciplina>();
+            if (opcao == 1) {
+                int opcao2 = 1;
+                while (opcao2 == 1) {
+                    Disciplina disciplina = this.buscaDisciplina(scanner);
+    
+                    if (disciplina != null) {
+                        discAdd.add(disciplina);
+                        System.out.println("Disciplina adicionada!");
+                    } else {
+                        System.out.println("Disicplina não encontrada!");
+                    }
+    
+                    System.out.println("\nDeseja adicionar mais disciplinas?");
+                    opcao2 = scanner.nextInt();
                 }
-
-                System.out.println("\nDeseja adicionar mais disciplinas?");
-                opcao2 = scanner.nextInt();
+            } else if (opcao != 2) {
+                System.out.println("Opção desconhecida! Assumindo não.");
             }
-        } else if (opcao != 2) {
-            System.out.println("Opção desconhecida! Assumindo não.");
+    
+            this.professores.add(new Professor(nome, senha, disciplinas));
+            System.out.println("\n\nProfessor(a) adicionado(a)!");
         }
-
-        this.professores.add(new Professor(nome, senha, disciplinas));
-        System.out.println("\n\nProfessor(a) adicionado(a)!");
     }
 
     public void excluirProfessor(Professor professor) {
