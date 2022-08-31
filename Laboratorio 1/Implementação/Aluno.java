@@ -25,19 +25,15 @@ public class Aluno extends Usuario {
         this.senha = senha;
     }
 
+    public Matricula getMatricula() {
+        return this.matriculaAtual;
+    }
+
     public void Matricular() {
 
     }
 
     public void CancelarMatricula() {
-
-    }
-
-    public void adicionarDisciplina(Disciplina disciplina) {
-
-    }
-
-    public void removerDisciplina(Disciplina disciplina) {
 
     }
 

@@ -241,13 +241,13 @@ public class Secretaria extends Usuario {
                             Disciplina disciplina = this.buscaDisciplina(scanner);
 
                             if (disciplina != null) {
-                                aluno.adicionarDisciplina(disciplina);
+                                aluno.getMatricula().adicionarDisciplina(disciplina);
                                 System.out.println("Disciplina adicionada com sucesso!");
                             } else {
                                 System.out.println("Disciplina não encontrada!");
                             }
                         } else if (opcao2 == 2) {
-                            aluno.removerDisciplina(this.buscaDisciplina(scanner));
+                            aluno.getMatricula().removerDisciplina(this.buscaDisciplina(scanner));
                         }
                     }
                     break;
