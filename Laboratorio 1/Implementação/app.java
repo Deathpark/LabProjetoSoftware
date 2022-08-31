@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class App {
+public class app {
 
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);

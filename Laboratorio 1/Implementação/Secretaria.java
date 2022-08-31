@@ -241,16 +241,20 @@ public class Secretaria extends Usuario {
                         opcao2 = scanner.nextInt();
 
                         if (opcao2 == 1) {
-                            Disciplina disciplina = this.buscaDisciplina(scanner);
+                            Optional<Disciplina> disciplina = this.buscaDisciplina(scanner);
 
-                            if (disciplina != null) {
-                                aluno.getMatricula().adicionarDisciplina(disciplina);
+                            if (disciplina.isPresent()) {
+                                aluno.getMatricula().adicionarDisciplina(disciplina.get());
                                 System.out.println("Disciplina adicionada com sucesso!");
                             } else {
                                 System.out.println("Disciplina não encontrada!");
                             }
                         } else if (opcao2 == 2) {
-                            aluno.getMatricula().removerDisciplina(this.buscaDisciplina(scanner));
+                            Optional<Disciplina> disciplina = this.buscaDisciplina(scanner);
+
+                            if(disciplina.isPresent()) {
+                                aluno.getMatricula().removerDisciplina(disciplina.get());
+                            }
                         }
                     }
                     break;
@@ -327,16 +331,20 @@ public class Secretaria extends Usuario {
                         opcao2 = scanner.nextInt();
 
                         if (opcao2 == 1) {
-                            Disciplina disciplina = this.buscaDisciplina(scanner);
+                            Optional<Disciplina> disciplina = this.buscaDisciplina(scanner);
 
-                            if (disciplina != null) {
-                                professor.adicionarDisciplina(disciplina);
+                            if (disciplina.isPresent()) {
+                                professor.adicionarDisciplina(disciplina.get());
                                 System.out.println("Disciplina adicionada com sucesso!");
                             } else {
                                 System.out.println("Disciplina não encontrada!");
                             }
                         } else if (opcao2 == 2) {
-                            professor.removerDisciplina(this.buscaDisciplina(scanner));
+                            Optional<Disciplina> disciplina = this.buscaDisciplina(scanner);
+                            
+                            if(disciplina.isPresent()) {
+                                professor.removerDisciplina(disciplina.get());
+                            } 
                         }
                     }
                     break;
@@ -371,10 +379,10 @@ public class Secretaria extends Usuario {
             if (opcao == 1) {
                 int opcao2 = 1;
                 while (opcao2 == 1) {
-                    Disciplina disciplina = this.buscaDisciplina(scanner);
+                    Optional<Disciplina> disciplina = this.buscaDisciplina(scanner);
     
-                    if (disciplina != null) {
-                        discAdd.add(disciplina);
+                    if (disciplina.isPresent()) {
+                        discAdd.add(disciplina.get());
                         System.out.println("Disciplina adicionada!");
                     } else {
                         System.out.println("Disicplina não encontrada!");
@@ -440,11 +448,11 @@ public class Secretaria extends Usuario {
         System.out.println("0 - Sair");
     }
 
-    public Disciplina buscaDisciplina(Scanner scanner) {
+    public Optional<Disciplina> buscaDisciplina(Scanner scanner) {
         System.out.println("Digite o nome da disciplina:");
         String nomeDisciplina = scanner.nextLine();
 
-        return this.disciplinas.stream().filter(d -> d.getNome().equals(nomeDisciplina)).findFirst().get();
+        return this.disciplinas.stream().filter(d -> d.getNome().equals(nomeDisciplina)).findFirst();
 
     }
 
