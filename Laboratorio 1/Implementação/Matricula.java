@@ -37,14 +37,19 @@ public class Matricula implements Serializable {
     }
 
     public void adicionarDisciplina(Disciplina disciplina) {
-        this.disciplinas.add(disciplina);
+        if(this.estaEmAberto()) {
+            this.disciplinas.add(disciplina);
+        } else {
+            System.out.println("Período indisponível para adicionar disciplina");
+        }
     }
 
     public void removerDisciplina(Disciplina disciplina) {
         if(this.estaEmAberto()) {
             this.disciplinas.remove(disciplina);
+        } else {
+            System.out.println("Período indisponível para remover matrícula");
         }
-        System.out.println("Período indisponível para remover matrícula");
     }
 
 
