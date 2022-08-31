@@ -15,6 +15,10 @@ public abstract class Usuario implements Serializable {
         return senha.equals(this.senha);
     }
 
+    public String getNome() {
+        return this.nome;
+    }
+
     public void logout() {
         System.out.println("Você está deslogado.");
     }

@@ -14,14 +14,6 @@ public class app {
         System.out.println(usuarioAtual);
         usuarioAtual.menu(teclado);
 
-        // teste
-        // System.out.println("Aluno teste:");
-        // String nome = teclado.nextLine();
-        // s.criarAluno(nome, "1234");
-
-        // System.out.println("\nAlunos salvos:");
-        // s.imprimirAlunos();
-
         // quando encerrar o programa:
         s.salvar();
         usuarioAtual.logout();
@@ -39,7 +31,7 @@ public class app {
         do {
             System.out.println("Digite seu nome. Deixe em branco para sair");
             String nome = teclado.nextLine();
-            usuario = usuarios.stream().filter(u -> u.nome.equals(nome)).findAny();
+            usuario = usuarios.stream().filter(u -> u.getNome().equals(nome)).findAny();
             if (usuario.isEmpty() && !nome.equals("")) {
                 erro = true;
                 System.out.println("Esse usuário não existe! Tente novamente.");
