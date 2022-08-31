@@ -55,22 +55,6 @@ public class Professor extends Usuario {
         }
     }
 
-    public void login() {
-        System.out.println("Digite seu nome: ");
-        String nome = teclado.nextLine();
-        
-        System.out.println("Digite a senha: ");  
-        String senha = teclado.nextLine();
-        
-        do {       
-            if(nome == this.nome && senha == this.senha) {
-                System.out.println("Logado com Sucesso!");       
-            } else {      
-                System.out.println("Usuário/Senha Incorreta");       
-            }       
-        } while(nome != this.nome && senha != this.senha) {
-    }
-
     public void menu(Scanner teclado) {
 
     }
