@@ -69,7 +69,7 @@ public class Secretaria extends Usuario {
         System.out.println("Digite se a disciplina é obrigatória: (S/N)");
         String obrigatoria = scanner.nextLine().toUpperCase();
 
-        Aluno disciplinaExiste = this.alunos.stream().filter(a -> a.getNome().equals(nome)).findFirst().get();
+        Optional<Disciplina> disciplinaExiste = this.disciplinas.stream().filter(d -> d.getNome().equals(nome)).findFirst();
 
         boolean obr;
         switch(obrigatoria) {
@@ -85,7 +85,7 @@ public class Secretaria extends Usuario {
                 break;
         }
 
-        if(disciplinaExiste != null) {
+        if(disciplinaExiste.isPresent()) {
             System.out.println("Já existe uma disciplina com este nome!");
         } else {
             this.disciplinas.add(new Disciplina(nome, obr));

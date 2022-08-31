@@ -68,7 +68,7 @@ public class Professor extends Usuario {
             } else {      
                 System.out.println("Usuário/Senha Incorreta");       
             }       
-        } while(nome != this.nome && senha != this.senha) {
+        } while(nome != this.nome && senha != this.senha);
     }
 
     public void menu(Scanner teclado) {
