@@ -11,6 +11,11 @@ public class Semestre implements Serializable {
         this.codigo = 0;
     }
 
+    public Semestre(int codigo, ArrayList<Disciplina> disciplinas) {
+        this.codigo = codigo;
+        this.disciplinas = disciplinas;
+    }
+
     public void ValidaCodigo(){
         
     }

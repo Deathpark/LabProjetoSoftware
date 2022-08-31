@@ -37,8 +37,30 @@ public class Secretaria extends Usuario {
         escreverDados(disciplinas, ARQ_DISCIPLINAS);
     }
 
-    public void gerarCurriculoSemestre() {
+    public void gerarCurriculoSemestre(Scanner scanner) {
+        System.out.println("Digite o código do semestre:");
+        int codigo = scanner.nextInt();
+        
+        System.out.println("Deseja adicionar matérias para esse semestre? (1 - Sim | 2 - Não)");
+        int opcao = scanner.nextInt();
+        
+        ArrayList<Disciplina> disciplinasAdicionar = new ArrayList<Disciplina>();
+        while(opcao == 1) {
+            System.out.println("Digite o nome da disciplina: ");
+            String nome = scanner.nextLine();
 
+            Disciplina disc = this.disciplinas.stream().filter(d -> d.getNome().equals(nome)).findFirst().get();
+            if(disc != null) {
+                disciplinasAdicionar.add(disc);
+            } else {
+                System.out.println("Disciplina não encontrada!");
+            }
+
+            System.out.println("Deseja adicionar mais matérias? (1 - Sim | 2 - Não)");
+            opcao = scanner.nextInt();
+        }
+
+        Semestre semestre = new Semestre(codigo, disciplinasAdicionar);
     }
 
     public void criarDisciplina(Scanner scanner) {
