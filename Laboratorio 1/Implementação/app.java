@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class App {
+public class app {
 
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
@@ -13,14 +13,6 @@ public class App {
         Usuario usuarioAtual = menuLogin(teclado);
         System.out.println(usuarioAtual);
         usuarioAtual.menu(teclado);
-
-        // teste
-        // System.out.println("Aluno teste:");
-        // String nome = teclado.nextLine();
-        // s.criarAluno(nome, "1234");
-
-        // System.out.println("\nAlunos salvos:");
-        // s.imprimirAlunos();
 
         // quando encerrar o programa:
         s.salvar();
@@ -39,7 +31,7 @@ public class App {
         do {
             System.out.println("Digite seu nome. Deixe em branco para sair");
             String nome = teclado.nextLine();
-            usuario = usuarios.stream().filter(u -> u.nome.equals(nome)).findAny();
+            usuario = usuarios.stream().filter(u -> u.getNome().equals(nome)).findAny();
             if (usuario.isEmpty() && !nome.equals("")) {
                 erro = true;
                 System.out.println("Esse usuário não existe! Tente novamente.");
