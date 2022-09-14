@@ -8,9 +8,9 @@
   </li>
   <li>
     Como cliente,<br>
-    Quero poder introduzir, cancelar, consultar e modificar pedidos de aluguel
+    Quero poder introduzir, cancelar, consultar e modificar pedidos de aluguel<br>
     Para manter os dados do aluguel atualizado
-  </li
+  </li>
   <li>
     Como agente,<br>
     Quero modificar pedidos<br>
