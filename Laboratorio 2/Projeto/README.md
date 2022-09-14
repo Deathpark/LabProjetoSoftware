@@ -1,4 +1,4 @@
-# LabProjetoSoftware
+# Histórias de Usuário
 
 <ol>
   <li>
