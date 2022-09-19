@@ -1,12 +1,16 @@
 package LeticiaRichbertSara.LabDesSoftware02;
 
+import javax.persistence.Entity;
+
+
+@Entity
 public class Automovel {
     private int ano;
     private String matricula;
     private String marca;
     private String modelo;
     private String placa;
-    private int proprietario;
+    private String proprietario;
 
 
     public int getAno() {
@@ -49,12 +53,17 @@ public class Automovel {
         this.placa = placa;
     }
 
-    public int getProprietario() {
+    public String getProprietario() {
         return this.proprietario;
     }
 
-    public void setProprietario(int proprietario) {
-        this.proprietario = proprietario;
+    public void setProprietario(String proprietario) {
+        this.proprietario = proprietario.toUpperCase();
     }
+
+    @GetMapping("/cadastrarAutomovel")
+    public String hello(@RequestParam(value = "name", defaultValue = "World") String name, @RequestParam(value = "othername", defaultValue = "World²") String othername) {
+		return String.format("Hello %s %s!", name, othername);
+	}
 
 }
