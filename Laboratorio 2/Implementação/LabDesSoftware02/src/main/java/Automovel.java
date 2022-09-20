@@ -1,9 +1,13 @@
-package LeticiaRichbertSara.LabDesSoftware02;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Entity
+@Table(name = "automovel")
 public class Automovel {
     private int ano;
     private String matricula;
@@ -60,10 +64,5 @@ public class Automovel {
     public void setProprietario(String proprietario) {
         this.proprietario = proprietario.toUpperCase();
     }
-
-    @GetMapping("/cadastrarAutomovel")
-    public String hello(@RequestParam(value = "name", defaultValue = "World") String name, @RequestParam(value = "othername", defaultValue = "World²") String othername) {
-		return String.format("Hello %s %s!", name, othername);
-	}
 
 }

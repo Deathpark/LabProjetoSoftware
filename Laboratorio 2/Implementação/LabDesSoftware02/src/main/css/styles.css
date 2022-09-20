@@ -1,0 +1,11 @@
+#clientForm {
+    padding: 10px;
+    border: 1px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: black;
+}
+
+#clientForm div {
+    padding: 5px;
+}
