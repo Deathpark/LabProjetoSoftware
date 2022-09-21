@@ -1,3 +1,4 @@
+package Entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,8 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 
-@Entity
-@Table(name = "automovel")
+//@Entity
+//@Table(name = "automovel")
 public class Automovel {
     private int ano;
     private String matricula;

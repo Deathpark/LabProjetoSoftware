@@ -1,3 +1,4 @@
+package Entities;
 
 import java.util.ArrayList;
 
@@ -9,8 +10,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.databind.annotation.JsonAppend.Prop;
 
-@Entity
-@Table(name = "cliente")
+//@Entity
+//@Table(name = "cliente")
 public class Cliente {
     private String rg;
     private int cpf;
