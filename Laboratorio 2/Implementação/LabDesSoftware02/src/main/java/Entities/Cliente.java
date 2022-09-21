@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.annotation.JsonAppend.Prop;
 
 //@Entity
 //@Table(name = "cliente")
-public class Cliente {
+public class Cliente extends Usuario {
     private String rg;
     private int cpf;
     private Endereco endereco;
