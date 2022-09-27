@@ -9,13 +9,25 @@
         <div class="row">
           <div class="col-12">
             <p><b>Nome:</b> <span th:text="${cliente.nome}"></span></p>
-            <p><b>Endereço:</b> <span th:text="${cliente.endereco}"></span></p>
             <p><b>CPF:</b> <span th:text="${cliente.cpf}"></span></p>
+            <p><b>Endereço:</b> <span th:text="${cliente.endereco}"></span></p>
+            <p>
+              <b>Profissão:</b> <span th:text="${cliente.profissao}"></span>
+            </p>
+            <p>
+              <b>Rendimentos:</b>
+              <ul>
+                <ol th:each="rendimento: ${cliente.rendimentos}">
+                  <span th:text="${rendimento}"></span>
+                </ol>
+              </ul>
+            </p>
           </div>
         </div>
         <div class="row">
           <div class="col-12">
-            <a class="btn btn-primary"
+            <a
+              class="btn btn-primary"
               th:href="@{/clientes/{clienteId}/aluguel(clienteId = ${cliente.id})}"
               >Aluguéis</a
             >

@@ -1,33 +1,41 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="~{fragmentos :: head('Lista de clientes')}"></head>
+  <head th:replace="~{fragmentos :: head('Novo cliente')}"></head>
   <body>
-    <header th:replace="~{fragmentos :: header('Editar cliente')}"></header>
+    <header th:replace="~{fragmentos :: header('Novo cliente')}"></header>
 
-    <form action="/clientes" method="POST">
-      <div>
-        <label for="nome">Nome</label>
-        <input type="text" id="nome" name="nome" />
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <form th:object="${cliente}" th:action="@{/clientes/{clienteId}(clienteId = ${cliente.id})}" method="POST">
+            <div>
+              <label for="nome">Nome</label>
+              <input class="form-control" type="text" th:field="*{nome}" />
+            </div>
+            <div>
+              <label for="senha">Senha</label>
+              <input class="form-control" type="text" th:field="*{senha}" />
+            </div>
+            <div>
+              <label for="cpf">CPF</label>
+              <input class="form-control" type="text" th:field="*{cpf}" />
+            </div>
+            <div>
+              <label for="endereco">Endereço</label>
+              <input class="form-control" type="text" th:field="*{endereco}" />
+            </div>
+            <div>
+              <label for="profissao">Profissão</label>
+              <input class="form-control" type="text" th:field="*{profissao}" />
+            </div>
+            <div>
+              <button class="btn btn-primary mt-4" type="submit">
+                Salvar
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-      <div>
-        <label for="senha">Senha</label>
-        <input type="text" id="senha" name="senha" />
-      </div>
-      <div>
-        <label for="cpf">CPF</label>
-        <input type="text" id="cpf" name="cpf" />
-      </div>
-      <div>
-        <label for="endereco">Endereço</label>
-        <input type="text" id="endereco" name="endereco" />
-      </div>
-      <div>
-        <label for="profissao">Profissão</label>
-        <input type="text" id="profissao" name="profissao" />
-      </div>
-      <div>
-        <button type="submit">Cadastrar</button>
-      </div>
-    </form>
+    </div>
   </body>
 </html>

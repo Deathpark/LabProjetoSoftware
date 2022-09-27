@@ -10,8 +10,6 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="/css/style.css" />
-
   <title th:text="${titulo}">Home</title>
 </head>
 
@@ -33,6 +31,14 @@
           th:classappend="${#httpServletRequest.getRequestURI().startsWith('/clientes') ? 'active' : ''}"
           href="/clientes"
           >Clientes</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          th:classappend="${#httpServletRequest.getRequestURI().startsWith('/aluguel') ? 'active' : ''}"
+          href="/aluguel"
+          >Todos os aluguéis</a
         >
       </li>
     </ul>

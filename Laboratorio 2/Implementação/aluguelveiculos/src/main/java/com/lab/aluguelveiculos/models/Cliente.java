@@ -26,10 +26,11 @@ public class Cliente {
     private String rg;
     private String endereco;
     private String profissao;
-    private ArrayList<Double> rendimentos;
+    private double[] rendimentos;
+    private final static int MAX_RENDIMENTOS = 3;
 
     public Cliente(String nome, String senha, int cpf, String rg, String endereco, String profissao,
-            ArrayList<Double> rendimentos) {
+            double[] rendimentos) {
         this.nome = nome;
         this.senha = senha;
         this.cpf = cpf;
@@ -98,11 +99,11 @@ public class Cliente {
         this.profissao = profissao;
     }
 
-    public ArrayList<Double> getRendimentos() {
+    public double[] getRendimentos() {
         return rendimentos;
     }
 
-    public void setRendimentos(ArrayList<Double> rendimentos) {
+    public void setRendimentos(double[] rendimentos) {
         this.rendimentos = rendimentos;
     }
 

@@ -11,7 +11,7 @@
             th:action="@{/clientes/{idCliente}/aluguel(idCliente = ${idCliente})}"
             method="POST"
           >
-            <div>
+            <div class="mt-3">
               <label for="automovel">Automóvel</label>
               <input
                 class="form-control"
@@ -20,7 +20,7 @@
                 name="automovel"
               />
             </div>
-            <div>
+            <div class="mt-3">
               <label for="dataInicio">Data de início</label>
               <input
                 class="form-control"
@@ -29,7 +29,7 @@
                 name="dataInicio"
               />
             </div>
-            <div>
+            <div class="mt-3">
               <label for="dataFim">Data de término</label>
               <input
                 class="form-control"
@@ -38,14 +38,11 @@
                 name="dataFim"
               />
             </div>
-            <div>
-              <label for="dataFim">Possui contrato de crédito?</label>
-              <input
-                class="form-control"
-                type="checkbox"
-                id="contrato"
-                name="contrato"
-              />
+            <div class="mt-3">
+              <input type="checkbox" id="contrato" name="contrato" /><label
+                for="dataFim"
+                >Possui contrato de crédito?</label
+              >
             </div>
             <div>
               <button class="btn btn-primary mt-4" type="submit">

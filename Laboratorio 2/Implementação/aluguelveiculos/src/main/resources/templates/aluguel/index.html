@@ -38,13 +38,8 @@
                 </td>
                 <td>
                   <a
-                    th:href="@{/aluguel/{aluguelId}/edit(aluguelId = ${aluguel.id})}"
-                    >Editar</a
-                  >
-                </td>
-                <td>
-                  <a
-                    th:href="@{/aluguel/{aluguelId}/delete(aluguelId = ${aluguel.id})}"
+                    th:if="${idCliente != null}"
+                    th:href="@{/clientes/{idCliente}/aluguel/{aluguelId}/delete(aluguelId = ${aluguel.id}, idCliente = ${idCliente})}"
                     >Deletar</a
                   >
                 </td>
@@ -53,7 +48,7 @@
           </table>
         </div>
       </div>
-      <div class="row">
+      <div th:if="${idCliente != null}" class="row">
         <div class="col-12">
           <a
             th:href="@{/clientes/{idCliente}/aluguel/new(idCliente = ${idCliente})}"
