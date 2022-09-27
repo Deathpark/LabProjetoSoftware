@@ -1,13 +1,17 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="~{fragmentos :: head('Novo cliente')}"></head>
+  <head th:replace="~{fragmentos :: head('Editar')}"></head>
   <body>
-    <header th:replace="~{fragmentos :: header('Novo cliente')}"></header>
+    <header th:replace="~{fragmentos :: header('Editar ' + ${cliente.nome})}"></header>
 
     <div class="container">
       <div class="row">
         <div class="col-6">
-          <form th:object="${cliente}" th:action="@{/clientes/{clienteId}(clienteId = ${cliente.id})}" method="POST">
+          <form
+            th:object="${cliente}"
+            th:action="@{/clientes/{clienteId}(clienteId = ${cliente.id})}"
+            method="POST"
+          >
             <div>
               <label for="nome">Nome</label>
               <input class="form-control" type="text" th:field="*{nome}" />
@@ -29,9 +33,15 @@
               <input class="form-control" type="text" th:field="*{profissao}" />
             </div>
             <div>
-              <button class="btn btn-primary mt-4" type="submit">
-                Salvar
-              </button>
+              <label for="rendimentos">Rendimentos</label>
+              <input
+                class="form-control"
+                type="text"
+                th:field="*{rendimentos}"
+              />
+            </div>
+            <div>
+              <button class="btn btn-primary mt-4" type="submit">Salvar</button>
             </div>
           </form>
         </div>

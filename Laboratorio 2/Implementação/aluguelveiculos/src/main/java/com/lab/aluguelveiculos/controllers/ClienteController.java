@@ -83,6 +83,12 @@ public class ClienteController {
         Optional<Cliente> optional = this.clienteRepository.findById(id);
         if (optional.isPresent()) {
             Cliente c = optional.get();
+            c.setNome(cliente.getNome());
+            c.setSenha(cliente.getSenha());
+            c.setEndereco(cliente.getEndereco());
+            c.setProfissao(cliente.getProfissao());
+            c.setRendimentos(cliente.getRendimentos());
+
             this.clienteRepository.save(c);
             ModelAndView mv = new ModelAndView("redirect:/clientes/" + c.getId().toString());
             return mv;
