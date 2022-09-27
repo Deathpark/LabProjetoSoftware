@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <head th:replace="~{fragmentos :: head('Home')}"></head>
   <body>
-    <header th:replace="~{fragmentos :: header('Home')}"></header>
-    
+    <header th:replace="~{fragmentos :: header('Aluguel de veículos')}"></header>
+
     <main>
       <div class="container mt-4">
         <div class="list-group">
@@ -14,13 +14,11 @@
           >
             Clientes
           </button>
-          <button
-            type="button"
-            class="list-group-item list-group-item-action"
-            th:onclick="'window.location.href=\'/aluguel\''"
-          >
-            Aluguel
-          </button>
+        </div>
+        <div class="row mt-4">
+          <div class="col-12">
+            <p>Selecione um cliente para gerenciar seus aluguéis</p>
+          </div>
         </div>
       </div>
     </main>

@@ -14,9 +14,11 @@
                 <th>Automóvel</th>
                 <th>Data de início</th>
                 <th>Data de término</th>
+                <th>Contrato de crédito</th>
+                <th>Id Cliente</th>
                 <th>-</th>
                 <th>-</th>
-                <th>-</th>                
+                <th>-</th>
               </tr>
             </thead>
             <tbody>
@@ -25,6 +27,8 @@
                 <td th:text="${aluguel.automovel}"></td>
                 <td th:text="${aluguel.dataInicio}"></td>
                 <td th:text="${aluguel.dataFim}"></td>
+                <td th:text="${aluguel.contrato}"></td>
+                <td th:text="${aluguel.idCliente}"></td>
 
                 <td>
                   <a
@@ -51,7 +55,10 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <a href="/aluguel/new">Novo aluguel</a>
+          <a
+            th:href="@{/clientes/{idCliente}/aluguel/new(idCliente = ${idCliente})}"
+            >Novo aluguel</a
+          >
         </div>
       </div>
     </div>

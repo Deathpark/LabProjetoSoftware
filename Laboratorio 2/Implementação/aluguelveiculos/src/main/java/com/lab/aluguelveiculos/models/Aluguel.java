@@ -18,6 +18,7 @@ public class Aluguel {
     private Date dataInicio;
     private Date dataFim;
     private boolean contrato;
+    private Long idCliente;
 
     public String getAutomovel() {
         return automovel;
@@ -49,6 +50,14 @@ public class Aluguel {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Long idCliente) {
+        this.idCliente = idCliente;
     }
 
     public boolean getContrato() {

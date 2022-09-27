@@ -2,9 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <head th:replace="~{fragmentos :: head('Lista de clientes')}"></head>
   <body>
-    <header
-      th:replace="~{fragmentos :: header(${cliente.nome})}"
-    ></header>
+    <header th:replace="~{fragmentos :: header(${cliente.nome})}"></header>
 
     <main>
       <div class="container">
@@ -13,6 +11,14 @@
             <p><b>Nome:</b> <span th:text="${cliente.nome}"></span></p>
             <p><b>Endereço:</b> <span th:text="${cliente.endereco}"></span></p>
             <p><b>CPF:</b> <span th:text="${cliente.cpf}"></span></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <a class="btn btn-primary"
+              th:href="@{/clientes/{clienteId}/aluguel(clienteId = ${cliente.id})}"
+              >Aluguéis</a
+            >
           </div>
         </div>
       </div>

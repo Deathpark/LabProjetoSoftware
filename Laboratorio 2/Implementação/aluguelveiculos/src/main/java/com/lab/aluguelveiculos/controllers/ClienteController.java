@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.lab.aluguelveiculos.models.Aluguel;
 import com.lab.aluguelveiculos.models.Cliente;
+import com.lab.aluguelveiculos.repositories.AluguelRepository;
 import com.lab.aluguelveiculos.repositories.ClienteRepository;
 
 @Controller
@@ -23,6 +25,8 @@ import com.lab.aluguelveiculos.repositories.ClienteRepository;
 public class ClienteController {
     @Autowired
     private ClienteRepository clienteRepository;
+    @Autowired
+    private AluguelRepository aluguelRepository;
 
     @GetMapping("")
     public ModelAndView index() {
@@ -85,4 +89,35 @@ public class ClienteController {
         }
 
     }
+
+    @GetMapping("/{id}/aluguel")
+    public ModelAndView indexAluguel(@PathVariable Long id) {
+
+        List<Aluguel> todosAlugueis = this.aluguelRepository.findAll();
+        List<Aluguel> alugueis = todosAlugueis.stream().filter(a -> a.getIdCliente()
+        == id).toList();
+
+        ModelAndView mv = new ModelAndView("aluguel/index");
+        mv.addObject("alugueis", alugueis);
+        mv.addObject("idCliente", id);
+
+        return mv;
+    }
+
+    @GetMapping("/{id}/aluguel/new")
+    public ModelAndView newAluguel(@PathVariable Long id) {
+        ModelAndView mv = new ModelAndView("aluguel/new");
+        mv.addObject("idCliente", id);
+
+        return mv;
+    }
+
+    @PostMapping("/{id}/aluguel")
+    public String createAluguel(Aluguel a, @PathVariable Long id) {
+        a.setIdCliente(id);
+        a.setId(null);
+        this.aluguelRepository.save(a);
+        return "redirect:/clientes/{id}/aluguel/";
+    }
+
 }
