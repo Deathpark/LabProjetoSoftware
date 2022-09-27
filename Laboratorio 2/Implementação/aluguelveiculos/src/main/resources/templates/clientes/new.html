@@ -1,38 +1,49 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Novo cliente</title>
-  </head>
+  <head th:replace="~{fragmentos :: head('Novo cliente')}"></head>
   <body>
     <header th:replace="~{fragmentos :: header('Novo cliente')}"></header>
 
-    <form action="/clientes" method="POST">
-      <div>
-        <label for="nome">Nome</label>
-        <input type="text" id="nome" name="nome" />
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <form action="/clientes" method="POST">
+            <div>
+              <label for="nome">Nome</label>
+              <input class="form-control" type="text" id="nome" name="nome" />
+            </div>
+            <div>
+              <label for="senha">Senha</label>
+              <input class="form-control" type="text" id="senha" name="senha" />
+            </div>
+            <div>
+              <label for="cpf">CPF</label>
+              <input class="form-control" type="text" id="cpf" name="cpf" />
+            </div>
+            <div>
+              <label for="endereco">Endereço</label>
+              <input
+                class="form-control"
+                type="text"
+                id="endereco"
+                name="endereco"
+              />
+            </div>
+            <div>
+              <label for="profissao">Profissão</label>
+              <input
+                class="form-control"
+                type="text"
+                id="profissao"
+                name="profissao"
+              />
+            </div>
+            <div>
+              <button class="btn btn-primary mt-4" type="submit">Cadastrar</button>
+            </div>
+          </form>
+        </div>
       </div>
-      <div>
-        <label for="senha">Senha</label>
-        <input type="text" id="senha" name="senha" />
-      </div>
-      <div>
-        <label for="cpf">CPF</label>
-        <input type="text" id="cpf" name="cpf" />
-      </div>
-      <div>
-        <label for="endereco">Endereço</label>
-        <input type="text" id="endereco" name="endereco" />
-      </div>
-      <div>
-        <label for="profissao">Profissão</label>
-        <input type="text" id="profissao" name="profissao" />
-      </div>
-      <div>
-        <button type="submit">Cadastrar</button>
-      </div>
-    </form>
+    </div>
   </body>
 </html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragmentos :: head('Novo aluguel')}"></head>
+  <body>
+    <header th:replace="~{fragmentos :: header('Novo aluguel')}"></header>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <form action="/aluguel" method="POST">
+            <div>
+              <label for="automovel">Automóvel</label>
+              <input
+                class="form-control"
+                type="text"
+                id="automovel"
+                name="automovel"
+              />
+            </div>
+            <div>
+              <label for="dataInicio">Data de início</label>
+              <input
+                class="form-control"
+                type="date"
+                id="dataInicio"
+                name="dataInicio"
+              />
+            </div>
+            <div>
+              <label for="dataFim">Data de término</label>
+              <input
+                class="form-control"
+                type="date"
+                id="dataFim"
+                name="dataFim"
+              />
+            </div>
+            <div>
+              <button class="btn btn-primary mt-4" type="submit">
+                Cadastrar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

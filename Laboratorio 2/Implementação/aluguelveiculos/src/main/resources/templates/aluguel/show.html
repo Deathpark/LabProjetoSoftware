@@ -1,0 +1,21 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragmentos :: head('Lista de clientes')}"></head>
+  <body>
+    <header
+      th:replace="~{fragmentos :: header('Aluguel ' + ${aluguel.id})}"
+    ></header>
+
+    <main>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+
+            <p><b>Id:</b> <span th:text="${aluguel.id}"></span></p>
+            <p><b>Veículo:</b> <span th:text="${aluguel.automovel}"></span></p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
