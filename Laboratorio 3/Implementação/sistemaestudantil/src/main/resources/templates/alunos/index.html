@@ -1,0 +1,54 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragmentos :: head('Lista de alunos')}"></head>
+  <body>
+    <header th:replace="~{fragmentos :: header('Alunos')}"></header>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>-</th>
+                <th>-</th>
+                <th>-</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="aluno: ${alunos}">
+                <th th:text="${aluno.id}"></th>
+                <td th:text="${aluno.nome}"></td>
+                <td th:text="${aluno.cpf}"></td>
+                <td>
+                  <a
+                    th:href="@{/alunos/{alunoId}(alunoId = ${aluno.id})}"
+                    >Detalhes</a
+                  >
+                </td>
+                <td>
+                  <a
+                    th:href="@{/alunos/{alunoId}/edit(alunoId = ${aluno.id})}"
+                    >Editar</a
+                  >
+                </td>
+                <td>
+                  <a
+                    th:href="@{/alunos/{alunoId}/delete(alunoId = ${aluno.id})}"
+                    >Deletar</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12"><a href="/alunos/new">Novo aluno</a></div>
+      </div>
+    </div>
+  </body>
+</html>

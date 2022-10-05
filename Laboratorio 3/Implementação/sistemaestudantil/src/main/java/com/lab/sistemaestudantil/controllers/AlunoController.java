@@ -1,7 +1,5 @@
 package com.lab.sistemaestudantil.controllers;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,50 +13,51 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.lab.sistemaestudantil.models.Aluguel;
+import com.lab.sistemaestudantil.models.Aluno;
 import com.lab.sistemaestudantil.models.Cliente;
 import com.lab.sistemaestudantil.repositories.AluguelRepository;
+import com.lab.sistemaestudantil.repositories.AlunoRepository;
 
 @Controller
-@RequestMapping(value = "/aluguel")
-public class AluguelController {
+@RequestMapping(value = "/alunos")
+public class AlunoController {
     @Autowired
-    private AluguelRepository aluguelRepository;
+    private AlunoRepository alunoRepository;
 
     @GetMapping("")
     public ModelAndView index() {
 
-        List<Aluguel> alugueis = this.aluguelRepository.findAll();
+        List<Aluno> alunos = this.alunoRepository.findAll();
 
-        ModelAndView mv = new ModelAndView("aluguel/index");
-        mv.addObject("alugueis", alugueis);
+        ModelAndView mv = new ModelAndView("alunos/index");
+        mv.addObject("alunos", alunos);
 
         return mv;
     }
 
     @GetMapping("/new")
     public ModelAndView nnew() {
-        ModelAndView mv = new ModelAndView("aluguel/new");
+        ModelAndView mv = new ModelAndView("alunos/new");
 
         return mv;
     }
 
     @PostMapping("")
-    public String create(Aluguel a) {
-        a.setContrato(false);
-        this.aluguelRepository.save(a);
-        return "redirect:/aluguel";
+    public String create(Aluno a) {
+        this.alunoRepository.save(a);
+        return "redirect:/alunos";
     }
 
     @GetMapping("/{id}")
     public ModelAndView show(@PathVariable Long id) {
-        Optional<Aluguel> a = this.aluguelRepository.findById(id);
+        Optional<Aluno> a = this.alunoRepository.findById(id);
         if (a.isPresent()) {
-            Aluguel c = a.get();
-            ModelAndView mv = new ModelAndView("aluguel/show");
-            mv.addObject("aluguel", c);
+            Aluno c = a.get();
+            ModelAndView mv = new ModelAndView("alunos/show");
+            mv.addObject("aluno", c);
             return mv;
         } else {
-            return new ModelAndView("redirect:/aluguel");
+            return new ModelAndView("redirect:/alunos");
         }
     }
 }
