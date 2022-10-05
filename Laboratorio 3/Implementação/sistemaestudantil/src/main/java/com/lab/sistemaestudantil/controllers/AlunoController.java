@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.lab.sistemaestudantil.models.Aluguel;
 import com.lab.sistemaestudantil.models.Aluno;
-import com.lab.sistemaestudantil.models.Cliente;
 import com.lab.sistemaestudantil.repositories.AluguelRepository;
 import com.lab.sistemaestudantil.repositories.AlunoRepository;
 
@@ -59,5 +59,48 @@ public class AlunoController {
         } else {
             return new ModelAndView("redirect:/alunos");
         }
+    }
+
+    
+    @GetMapping("/{id}/edit")
+    public ModelAndView edit(@PathVariable Long id, Aluno cl) {
+        Optional<Aluno> optional = this.alunoRepository.findById(id);
+        if (optional.isPresent()) {
+            Aluno aluno = optional.get();
+            ModelAndView mv = new ModelAndView("alunos/edit");
+            mv.addObject("aluno", aluno);
+            return mv;
+        } else {
+            return new ModelAndView("redirect:/alunos");
+        }
+    }
+
+    @PostMapping("/{id}")
+    public ModelAndView update(@PathVariable Long id, Aluno aluno) {
+        Optional<Aluno> optional = this.alunoRepository.findById(id);
+        if (optional.isPresent()) {
+            Aluno c = optional.get();
+            c.setNome(aluno.getNome());
+            c.setSenha(aluno.getSenha());
+            c.setEmail(aluno.getEmail());
+
+            this.alunoRepository.save(c);
+            ModelAndView mv = new ModelAndView("redirect:/alunos/" + c.getId().toString());
+            return mv;
+        } else {
+            return new ModelAndView("redirect:/alunos");
+        }
+    }
+
+    @GetMapping("/{id}/delete")
+    public String delete(@PathVariable Long id) {
+        try {
+            this.alunoRepository.deleteById(id);
+            return "redirect:/alunos";
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e);
+            return "redirect:/alunos";
+        }
+
     }
 }

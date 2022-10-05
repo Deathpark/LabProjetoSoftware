@@ -28,17 +28,17 @@
       <li class="nav-item">
         <a
           class="nav-link"
-          th:classappend="${#httpServletRequest.getRequestURI().startsWith('/clientes') ? 'active' : ''}"
-          href="/clientes"
-          >Clientes</a
+          th:classappend="${#httpServletRequest.getRequestURI().startsWith('/alunos') ? 'active' : ''}"
+          href="/alunos"
+          >Alunos</a
         >
       </li>
       <li class="nav-item">
         <a
           class="nav-link"
-          th:classappend="${#httpServletRequest.getRequestURI().startsWith('/aluguel') ? 'active' : ''}"
-          href="/aluguel"
-          >Todos os aluguéis</a
+          th:classappend="${#httpServletRequest.getRequestURI().startsWith('/empresas') ? 'active' : ''}"
+          href="/empresas"
+          >Empresas</a
         >
       </li>
     </ul>

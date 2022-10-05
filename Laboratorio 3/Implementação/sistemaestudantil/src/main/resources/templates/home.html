@@ -3,7 +3,7 @@
   <head th:replace="~{fragmentos :: head('Home')}"></head>
   <body>
     <header
-      th:replace="~{fragmentos :: header('Aluguel de veículos')}"
+      th:replace="~{fragmentos :: header('Sistema estudantil')}"
     ></header>
 
     <main>
@@ -12,22 +12,17 @@
           <button
             type="button"
             class="list-group-item list-group-item-action"
-            th:onclick="'window.location.href=\'/clientes\''"
+            th:onclick="'window.location.href=\'/alunos\''"
           >
-            Clientes
+            Alunos
           </button>
           <button
             type="button"
             class="list-group-item list-group-item-action"
-            th:onclick="'window.location.href=\'/aluguel\''"
+            th:onclick="'window.location.href=\'/empresas\''"
           >
-            Aluguéis
+            Empresas
           </button>
-        </div>
-        <div class="row mt-4">
-          <div class="col-12">
-            <p>Selecione um cliente para gerenciar seus aluguéis</p>
-          </div>
         </div>
       </div>
     </main>
