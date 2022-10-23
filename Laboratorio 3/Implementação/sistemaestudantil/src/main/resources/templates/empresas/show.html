@@ -1,0 +1,63 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragmentos :: head('Lista de empresas')}"></head>
+  <body>
+    <header th:replace="~{fragmentos :: header(${empresa.nome})}"></header>
+
+    <main>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <p><b>Nome:</b> <span th:text="${empresa.nome}"></span></p>
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Nome</th>
+              <th>-</th>
+              <th>-</th>
+              <th>-</th>
+              <th>-</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="empresa: ${empresas}">
+              <th th:text="${empresa.id}"></th>
+              <td th:text="${empresa.nome}"></td>
+              <td th:text="${empresa.cpf}"></td>
+              <td>
+                <a
+                  th:href="@{/empresas/{empresaId}(empresaId = ${empresa.id})}"
+                  >Detalhes</a
+                >
+              </td>
+              <td>
+                <a
+                  th:href="@{/empresas/{empresaId}/edit(empresaId = ${empresa.id})}"
+                  >Editar</a
+                >
+              </td>
+              <td>
+                <a
+                  th:href="@{/empresas/{empresaId}/delete(empresaId = ${empresa.id})}"
+                  >Deletar</a
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="col-12">
+            <a
+              class="btn btn-primary"
+              th:href="@{/empresas/{empresaId}/vantagens(empresaId = ${empresa.id})}"
+              >Vantagens</a
+            >
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

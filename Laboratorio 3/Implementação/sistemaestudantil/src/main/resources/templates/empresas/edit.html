@@ -1,0 +1,31 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragmentos :: head('Editar')}"></head>
+  <body>
+    <header th:replace="~{fragmentos :: header('Editar ' + ${empresa.nome})}"></header>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <form
+            th:object="${empresa}"
+            th:action="@{/empresas/{empresaId}(empresaId = ${empresa.id})}"
+            method="POST"
+          >
+            <div>
+              <label for="nome">Nome</label>
+              <input class="form-control" type="text" th:field="*{nome}" />
+            </div>
+            <div>
+              <label for="senha">Senha</label>
+              <input class="form-control" type="text" th:field="*{senha}" />
+            </div>
+            <div>
+              <button class="btn btn-primary mt-4" type="submit">Salvar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

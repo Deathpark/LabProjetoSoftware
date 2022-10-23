@@ -1,0 +1,54 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragmentos :: head('Lista de alunos')}"></head>
+  <body>
+    <header th:replace="~{fragmentos :: header('Alunos')}"></header>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>-</th>
+                <th>-</th>
+                <th>-</th>
+                <th>-</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="empresa: ${empresas}">
+                <th th:text="${empresa.id}"></th>
+                <td th:text="${empresa.nome}"></td>
+                <td th:text="${empresa.cpf}"></td>
+                <td>
+                  <a
+                    th:href="@{/empresas/{empresaId}(empresaId = ${empresa.id})}"
+                    >Detalhes</a
+                  >
+                </td>
+                <td>
+                  <a
+                    th:href="@{/empresas/{empresaId}/edit(empresaId = ${empresa.id})}"
+                    >Editar</a
+                  >
+                </td>
+                <td>
+                  <a
+                    th:href="@{/empresas/{empresaId}/delete(empresaId = ${empresa.id})}"
+                    >Deletar</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12"><a href="/empresas/new">Nova empresa</a></div>
+      </div>
+    </div>
+  </body>
+</html>
