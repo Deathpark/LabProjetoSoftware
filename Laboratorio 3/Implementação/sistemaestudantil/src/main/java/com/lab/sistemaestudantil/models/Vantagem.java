@@ -24,19 +24,14 @@ public class Vantagem {
     private double valorVantagem;
     private int custo;
     private Empresa empresa;
-    private String endereco;
-    private String profissao;
-    private double[] rendimentos;
 
-    public Vantagem(String descricao, double valorVantagem, int custo, Empresa empresa, String endereco, String profissao,
+    public Vantagem(String descricao, double valorVantagem, int custo, Empresa empresa, String endereco,
+            String profissao,
             double[] rendimentos) {
         this.descricao = descricao;
         this.valorVantagem = valorVantagem;
         this.custo = custo;
         this.empresa = empresa;
-        this.endereco = endereco;
-        this.profissao = profissao;
-        this.rendimentos = rendimentos;
     }
 
     public Vantagem() {
@@ -80,30 +75,6 @@ public class Vantagem {
 
     public void setCusto(int custo) {
         this.custo = custo;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getProfissao() {
-        return profissao;
-    }
-
-    public void setProfissao(String profissao) {
-        this.profissao = profissao;
-    }
-
-    public double[] getRendimentos() {
-        return rendimentos;
-    }
-
-    public void setRendimentos(double[] rendimentos) {
-        this.rendimentos = rendimentos;
     }
 
     public void criarVantagem() {

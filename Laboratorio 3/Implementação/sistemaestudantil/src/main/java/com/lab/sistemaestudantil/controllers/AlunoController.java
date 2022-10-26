@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
-import com.lab.sistemaestudantil.models.Aluguel;
+
 import com.lab.sistemaestudantil.models.Aluno;
-import com.lab.sistemaestudantil.repositories.AluguelRepository;
+
 import com.lab.sistemaestudantil.repositories.AlunoRepository;
 
 @Controller
@@ -61,7 +61,6 @@ public class AlunoController {
         }
     }
 
-    
     @GetMapping("/{id}/edit")
     public ModelAndView edit(@PathVariable Long id, Aluno cl) {
         Optional<Aluno> optional = this.alunoRepository.findById(id);

@@ -15,23 +15,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
-import com.lab.sistemaestudantil.models.Aluguel;
 import com.lab.sistemaestudantil.models.Cliente;
-import com.lab.sistemaestudantil.repositories.AluguelRepository;
+import com.lab.sistemaestudantil.models.Empresa;
 import com.lab.sistemaestudantil.repositories.ClienteRepository;
 
 @Controller
-@RequestMapping(value = "/clientes")
+@RequestMapping(value = "/empresas")
 public class ClienteController {
     @Autowired
     private ClienteRepository clienteRepository;
-    @Autowired
-    private AluguelRepository aluguelRepository;
 
     @GetMapping("")
     public ModelAndView index() {
 
-        List<Cliente> clientes = this.clienteRepository.findAll();
+        List<Empresa> clientes = this.clienteRepository.findAll();
 
         ModelAndView mv = new ModelAndView("clientes/index");
         mv.addObject("clientes", clientes);
@@ -47,16 +44,16 @@ public class ClienteController {
     }
 
     @PostMapping("")
-    public String create(Cliente cliente) {
+    public String create(Empresa cliente) {
         this.clienteRepository.save(cliente);
         return "redirect:/clientes";
     }
 
     @GetMapping("/{id}")
     public ModelAndView show(@PathVariable Long id) {
-        Optional<Cliente> cliente = this.clienteRepository.findById(id);
+        Optional<Empresa> cliente = this.clienteRepository.findById(id);
         if (cliente.isPresent()) {
-            Cliente c = cliente.get();
+            Empresa c = cliente.get();
             ModelAndView mv = new ModelAndView("clientes/show");
             mv.addObject("cliente", c);
             return mv;
@@ -67,9 +64,9 @@ public class ClienteController {
 
     @GetMapping("/{id}/edit")
     public ModelAndView edit(@PathVariable Long id, Cliente cl) {
-        Optional<Cliente> optional = this.clienteRepository.findById(id);
+        Optional<Empresa> optional = this.clienteRepository.findById(id);
         if (optional.isPresent()) {
-            Cliente cliente = optional.get();
+            Empresa cliente = optional.get();
             ModelAndView mv = new ModelAndView("clientes/edit");
             mv.addObject("cliente", cliente);
             return mv;
@@ -79,15 +76,13 @@ public class ClienteController {
     }
 
     @PostMapping("/{id}")
-    public ModelAndView update(@PathVariable Long id, Cliente cliente) {
-        Optional<Cliente> optional = this.clienteRepository.findById(id);
+    public ModelAndView update(@PathVariable Long id, Empresa cliente) {
+        Optional<Empresa> optional = this.clienteRepository.findById(id);
         if (optional.isPresent()) {
-            Cliente c = optional.get();
+            Empresa c = optional.get();
             c.setNome(cliente.getNome());
             c.setSenha(cliente.getSenha());
-            c.setEndereco(cliente.getEndereco());
-            c.setProfissao(cliente.getProfissao());
-            c.setRendimentos(cliente.getRendimentos());
+            c.setVantagens(cliente.getVantagens());
 
             this.clienteRepository.save(c);
             ModelAndView mv = new ModelAndView("redirect:/clientes/" + c.getId().toString());
@@ -109,46 +104,4 @@ public class ClienteController {
         }
 
     }
-
-    @GetMapping("/{id}/aluguel")
-    public ModelAndView indexAluguel(@PathVariable Long id) {
-
-        List<Aluguel> todosAlugueis = this.aluguelRepository.findAll();
-        List<Aluguel> alugueis = todosAlugueis.stream().filter(a -> a.getIdCliente() == id).toList();
-
-        ModelAndView mv = new ModelAndView("aluguel/index");
-        mv.addObject("alugueis", alugueis);
-        mv.addObject("idCliente", id);
-
-        return mv;
-    }
-
-    @GetMapping("/{id}/aluguel/new")
-    public ModelAndView newAluguel(@PathVariable Long id) {
-        ModelAndView mv = new ModelAndView("aluguel/new");
-        mv.addObject("idCliente", id);
-
-        return mv;
-    }
-
-    @PostMapping("/{id}/aluguel")
-    public String createAluguel(Aluguel a, @PathVariable Long id) {
-        a.setIdCliente(id);
-        a.setId(null);
-        this.aluguelRepository.save(a);
-        return "redirect:/clientes/{id}/aluguel/";
-    }
-
-    @GetMapping("/{idCliente}/aluguel/{id}/delete")
-    public String deleteAluguel(@PathVariable Long id, @PathVariable Long idCliente) {
-        try {
-            this.aluguelRepository.deleteById(id);
-            return "redirect:/clientes/" + idCliente.toString() + "/aluguel";
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
-            return "redirect:/clientes/" + idCliente.toString() + "/aluguel";
-        }
-
-    }
-
 }
