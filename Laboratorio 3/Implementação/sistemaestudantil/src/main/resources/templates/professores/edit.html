@@ -2,14 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <head th:replace="~{fragmentos :: head('Editar')}"></head>
   <body>
-    <header th:replace="~{fragmentos :: header('Editar ' + ${cliente.nome})}"></header>
+    <header
+      th:replace="~{fragmentos :: header('Editar ' + ${professor.nome})}"
+    ></header>
 
     <div class="container">
       <div class="row">
         <div class="col-6">
           <form
-            th:object="${cliente}"
-            th:action="@{/clientes/{clienteId}(clienteId = ${cliente.id})}"
+            th:object="${professor}"
+            th:action="@{/professores/{professorId}(professorId = ${professor.id})}"
             method="POST"
           >
             <div>
@@ -25,20 +27,8 @@
               <input class="form-control" type="text" th:field="*{cpf}" />
             </div>
             <div>
-              <label for="endereco">Endereço</label>
-              <input class="form-control" type="text" th:field="*{endereco}" />
-            </div>
-            <div>
-              <label for="profissao">Profissão</label>
-              <input class="form-control" type="text" th:field="*{profissao}" />
-            </div>
-            <div>
-              <label for="rendimentos">Rendimentos</label>
-              <input
-                class="form-control"
-                type="text"
-                th:field="*{rendimentos}"
-              />
+              <label for="email">Instituição de ensino</label>
+              <input class="form-control" type="text" th:field="*{InstituicaoEnsino}" />
             </div>
             <div>
               <button class="btn btn-primary mt-4" type="submit">Salvar</button>

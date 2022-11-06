@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Aluno {
+public class Professor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,30 +18,19 @@ public class Aluno {
     @Column(nullable = false)
     private String senha;
     private String cpf;
-    private String rg;
-    private String endereco;
-    private String email;
     private String instituicaoEnsino;
-    private String curso;
     private int moedas;
-    private String[] vantagens;
     private ArrayList<Integer> historico;
 
-    public Aluno(String nome, String senha, String cpf, String rg, String endereco, String email,
-            String instituicaoEnsino, String curso) {
+    public Professor(String nome, String senha, String cpf, String instituicaoEnsino, int moedas) {
         this.nome = nome;
         this.senha = senha;
         this.cpf = cpf;
-        this.rg = rg;
-        this.endereco = endereco;
-        this.email = email;
         this.instituicaoEnsino = instituicaoEnsino;
-        this.curso = curso;
         this.moedas = 0;
-        this.vantagens = new String[] {};
     }
 
-    public Aluno() {
+    public Professor() {
     }
 
     public Long getId() {
@@ -68,14 +57,6 @@ public class Aluno {
         this.senha = senha;
     }
 
-    public String getRg() {
-        return rg;
-    }
-
-    public void setRg(String rg) {
-        this.rg = rg;
-    }
-
     public String getCpf() {
         return cpf;
     }
@@ -84,36 +65,12 @@ public class Aluno {
         this.cpf = cpf;
     }
 
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getInstituicaoEnsino() {
         return instituicaoEnsino;
     }
 
     public void setInstituicaoEnsino(String instituicaoEnsino) {
         this.instituicaoEnsino = instituicaoEnsino;
-    }
-
-    public String getCurso() {
-        return curso;
-    }
-
-    public void setCurso(String curso) {
-        this.curso = curso;
     }
 
     public int getMoedas() {
@@ -126,12 +83,17 @@ public class Aluno {
         this.historico.add(diferenca);
     }
 
-    public String[] getVantagens() {
-        return vantagens;
+    public ArrayList<Integer> getHistorico() {
+        return historico;
     }
 
-    public void setVantagens(String[] vantagens) {
-        this.vantagens = vantagens;
+    public int transferirMoedas(int quantidade) {
+        int moedasAtuais = this.getMoedas();
+        if(moedasAtuais > quantidade) {
+            moedasAtuais -= quantidade;
+            this.setMoedas(moedasAtuais);
+            return quantidade;
+        }
+        return -1;
     }
-
 }

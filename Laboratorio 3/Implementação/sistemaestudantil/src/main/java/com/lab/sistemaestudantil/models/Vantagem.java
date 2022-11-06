@@ -22,16 +22,15 @@ public class Vantagem {
     private String descricao;
     @Column(nullable = false)
     private double valorVantagem;
-    private int custo;
-    private Empresa empresa;
+    private int custoVantagem;
+    private long idEmpresa;
 
-    public Vantagem(String descricao, double valorVantagem, int custo, Empresa empresa, String endereco,
-            String profissao,
+    public Vantagem(String descricao, double valorVantagem, int custoVantagem, long idEmpresa, String endereco, String profissao,
             double[] rendimentos) {
         this.descricao = descricao;
         this.valorVantagem = valorVantagem;
-        this.custo = custo;
-        this.empresa = empresa;
+        this.custoVantagem = custoVantagem;
+        this.idEmpresa = idEmpresa;
     }
 
     public Vantagem() {
@@ -61,20 +60,20 @@ public class Vantagem {
         this.valorVantagem = valorVantagem;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
+    public int getCustoVantagem() {
+        return custoVantagem;
     }
 
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
+    public void setCustoVantagem(int custoVantagem) {
+        this.custoVantagem = custoVantagem;
+    } 
+
+    public void setEmpresaId(long idEmpresa) {
+        this.idEmpresa = idEmpresa;
     }
 
-    public int getCusto() {
-        return custo;
-    }
-
-    public void setCusto(int custo) {
-        this.custo = custo;
+    public long getEmpresaId() {
+        return idEmpresa;
     }
 
     public void criarVantagem() {

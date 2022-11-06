@@ -1,8 +1,8 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="~{fragmentos :: head('Lista de alunos')}"></head>
+  <head th:replace="~{fragmentos :: head('Lista de Empresas')}"></head>
   <body>
-    <header th:replace="~{fragmentos :: header('Alunos')}"></header>
+    <header th:replace="~{fragmentos :: header('Empresas')}"></header>
 
     <div class="container">
       <div class="row">
@@ -12,7 +12,7 @@
               <tr>
                 <th>Id</th>
                 <th>Nome</th>
-                <th>-</th>
+                <th>Senha</th>
                 <th>-</th>
                 <th>-</th>
                 <th>-</th>
@@ -22,22 +22,22 @@
               <tr th:each="empresa: ${empresas}">
                 <th th:text="${empresa.id}"></th>
                 <td th:text="${empresa.nome}"></td>
-                <td th:text="${empresa.cpf}"></td>
+                <td th:text="${empresa.senha}"></td>
                 <td>
                   <a
-                    th:href="@{/empresas/{empresaId}(empresaId = ${empresa.id})}"
+                    th:href="@{/empresas/{idEmpresa}(idEmpresa = ${empresa.id})}"
                     >Detalhes</a
                   >
                 </td>
                 <td>
                   <a
-                    th:href="@{/empresas/{empresaId}/edit(empresaId = ${empresa.id})}"
+                    th:href="@{/empresas/{idEmpresa}/edit(idEmpresa = ${empresa.id})}"
                     >Editar</a
                   >
                 </td>
                 <td>
                   <a
-                    th:href="@{/empresas/{empresaId}/delete(empresaId = ${empresa.id})}"
+                    th:href="@{/empresas/{idEmpresa}/delete(idEmpresa = ${empresa.id})}"
                     >Deletar</a
                   >
                 </td>

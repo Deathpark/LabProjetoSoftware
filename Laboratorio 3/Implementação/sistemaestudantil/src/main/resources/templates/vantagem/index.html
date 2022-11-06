@@ -1,0 +1,55 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragmentos :: head('Lista de vantagens')}"></head>
+  <body>
+    <header th:replace="~{fragmentos :: header('Vantagem')}"></header>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Descrição</th>
+                <th>Valor da Vantagem</th>
+                <th>Custo da Vantagem</th>
+                <th>-</th>
+                <th>-</th>
+                <th>-</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="vantagem: ${vantagens}">
+                <th th:text="${vantagem.id}"></th>
+                <td th:text="${vantagem.descricao}"></td>
+                <td th:text="${vantagem.valorVantagem}"></td>
+                <td th:text="${vantagem.custoVantagem}"></td>
+                <td>
+                  <a
+                    th:href="@{/empresas/{idEmpresa}/vantagem/{vantagemId}(vantagemId = ${vantagem.id}, idEmpresa = ${idEmpresa})}"
+                    >Detalhes</a>
+                </td>
+                <td>
+                  <a
+                    th:href="@{/empresas/{idEmpresa}/vantagem/{vantagemId}/edit(vantagemId = ${vantagem.id}, idEmpresa = ${idEmpresa})}"
+                    >Editar</a>
+                </td>
+                <td>
+                  <a
+                    th:href="@{/empresas/{idEmpresa}/vantagem/{vantagemId}/delete(vantagemId = ${vantagem.id}, idEmpresa = ${idEmpresa})}"
+                    >Deletar</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <a th:href="@{/empresas/{idEmpresa}/vantagem/new(idEmpresa = ${idEmpresa})}">Nova vantagem</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

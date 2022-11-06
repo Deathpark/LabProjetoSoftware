@@ -22,9 +22,8 @@ public class Empresa {
     private String nome;
     @Column(nullable = false)
     private String senha;
-    private Vantagem[] vantagens;
-
-    public Empresa(String nome, String senha, Vantagem[] vantagens) {
+    private ArrayList<Vantagem> vantagens;
+    public Empresa(String nome, String senha, ArrayList<Vantagem> vantagens) {
         this.nome = nome;
         this.senha = senha;
         this.vantagens = vantagens;
@@ -57,27 +56,11 @@ public class Empresa {
         this.senha = senha;
     }
 
-    public Vantagem[] getVantagens() {
+    public ArrayList<Vantagem> getVantagens() {
         return vantagens;
     }
 
-    public void setVantagens(Vantagem[] vantagens) {
+    public void setVantagens(ArrayList<Vantagem> vantagens) {
         this.vantagens = vantagens;
-    }
-
-    public void criarVantagem() {
-
-    }
-
-    public void atualizarVantagem(int vantagem) {
-
-    }
-
-    public void consultarVantagem(int vantagem) {
-
-    }
-
-    public void cancelarVantagem(int vantagem) {
-
     }
 }

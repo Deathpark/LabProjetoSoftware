@@ -1,8 +1,8 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="~{fragmentos :: head('Lista de clientes')}"></head>
+  <head th:replace="~{fragmentos :: head('Lista de professores')}"></head>
   <body>
-    <header th:replace="~{fragmentos :: header('Clientes')}"></header>
+    <header th:replace="~{fragmentos :: header('Professores')}"></header>
 
     <div class="container">
       <div class="row">
@@ -13,31 +13,33 @@
                 <th>Id</th>
                 <th>Nome</th>
                 <th>CPF</th>
+                <th>Instituição de Ensino</th>
                 <th>-</th>
                 <th>-</th>
                 <th>-</th>
               </tr>
             </thead>
             <tbody>
-              <tr th:each="cliente: ${clientes}">
-                <th th:text="${cliente.id}"></th>
-                <td th:text="${cliente.nome}"></td>
-                <td th:text="${cliente.cpf}"></td>
+              <tr th:each="professor: ${professores}">
+                <th th:text="${professor.id}"></th>
+                <td th:text="${professor.nome}"></td>
+                <td th:text="${professor.cpf}"></td>
+                <td th:text="${professor.instituicaoEnsino}"></td>
                 <td>
                   <a
-                    th:href="@{/clientes/{clienteId}(clienteId = ${cliente.id})}"
+                    th:href="@{/professores/{professorId}(professorId = ${professor.id})}"
                     >Detalhes</a
                   >
                 </td>
                 <td>
                   <a
-                    th:href="@{/clientes/{clienteId}/edit(clienteId = ${cliente.id})}"
+                    th:href="@{/professores/{professorId}/edit(professorId = ${professor.id})}"
                     >Editar</a
                   >
                 </td>
                 <td>
                   <a
-                    th:href="@{/clientes/{clienteId}/delete(clienteId = ${cliente.id})}"
+                    th:href="@{/professores/{professorId}/delete(professorId = ${professor.id})}"
                     >Deletar</a
                   >
                 </td>
@@ -47,7 +49,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12"><a href="/clientes/new">Novo cliente</a></div>
+        <div class="col-12"><a href="/professores/new">Novo aluno</a></div>
       </div>
     </div>
   </body>

@@ -1,0 +1,35 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragmentos :: head('Nova vantagem')}"></head>
+  <body>
+    <header th:replace="~{fragmentos :: header('Nova vantagem')}"></header>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <form th:action="@{/empresas/{idEmpresa}/vantagem(idEmpresa = ${idEmpresa})}" method="POST">
+            <div class="mt-3">
+              <div>
+                <label for="descricao">Descrição</label>
+                <input class="form-control" type="text" id="descricao" name="descricao" />
+              </div>
+              <div>
+                <label for="valorVantagem">Valor da Vantagem</label>
+                <input class="form-control" type="text" id="valorVantagem" name="valorVantagem" />
+              </div>
+              <div>
+                <label for="custoVantagem">Custo da Vantagem</label>
+                <input class="form-control" type="text" id="custoVantagem" name="custoVantagem" />
+              </div>
+              <div>
+                <button class="btn btn-primary mt-4" type="submit">
+                  Cadastrar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

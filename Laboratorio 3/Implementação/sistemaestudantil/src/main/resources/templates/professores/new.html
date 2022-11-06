@@ -1,0 +1,39 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragmentos :: head('Novo professor')}"></head>
+  <body>
+    <header th:replace="~{fragmentos :: header('Novo professor')}"></header>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <form action="/professores" method="POST">
+            <div>
+              <label for="nome">Nome</label>
+              <input class="form-control" type="text" id="nome" name="nome" />
+            </div>
+            <div>
+              <label for="senha">Senha</label>
+              <input class="form-control" type="text" id="senha" name="senha" />
+            </div>
+            <div>
+              <label for="cpf">CPF</label>
+              <input class="form-control" type="text" id="cpf" name="cpf" />
+            </div>
+            <div>
+            <div>
+              <label for="instituicaoEnsino">Instituição de Ensino</label>
+              <input class="form-control" type="text" id="instituicaoEnsino" name="instituicaoEnsino" />
+            </div>
+            <div>
+            <div>
+              <button class="btn btn-primary mt-4" type="submit">
+                Cadastrar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -9,7 +9,7 @@
         <div class="col-6">
           <form
             th:object="${empresa}"
-            th:action="@{/empresas/{empresaId}(empresaId = ${empresa.id})}"
+            th:action="@{/empresas/{idEmpresa}(idEmpresa = ${empresa.id})}"
             method="POST"
           >
             <div>
