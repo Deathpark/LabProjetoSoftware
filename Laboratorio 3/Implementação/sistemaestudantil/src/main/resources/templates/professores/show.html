@@ -16,11 +16,26 @@
           </div>
         </div>
         <div class="row">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Diferença de moedas</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="professor: ${professores}">
+                <tr th:each="item, itemStat : *{historico}">
+                  <td><input th:field="*{historico[__${itemStat.index}__].value}" /></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row">
           <div class="col-12">
             <a
               class="btn btn-primary"
-              th:href="@{/professores/{professorId}/extrato(professorId = ${professor.id})}"
-              >Consultar Extrato</a
+              th:href="@{/professores/{professorId}/transferirMoedasForm(professorId = ${professor.id})}"
+              >Transferir Moedas</a
             >
           </div>
         </div>

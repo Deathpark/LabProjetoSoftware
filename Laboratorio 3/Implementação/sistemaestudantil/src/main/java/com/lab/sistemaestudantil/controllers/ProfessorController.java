@@ -7,7 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -106,8 +108,8 @@ public class ProfessorController {
 
     }
 
-    @GetMapping("/{id}/transferirMoedas")
-    public String transferirMoedas(@PathVariable Long id, int quantidade, long alunoId) {
+    @PostMapping("/{id}/transferirMoedas/{qntMoedas}/{alunoId}")
+    public String transferirMoedas(@PathVariable Long id, @PathVariable int quantidade, @PathVariable long alunoId) {
         Optional<Professor> p = this.professorRepository.findById(id);
         Optional<Aluno> a = this.alunoRepository.findById(alunoId);
         int qnt = -1;
@@ -125,17 +127,22 @@ public class ProfessorController {
         }
     }
 
-    @GetMapping("/{id}/consultarExtrato")
-    public ModelAndView consultarExtrato(@PathVariable Long id) {
+    @GetMapping("/{id}/transferirMoedasForm")
+    public ModelAndView transferirMoedasForm(@PathVariable long id) {
         Optional<Professor> p = this.professorRepository.findById(id);
         if (p.isPresent()) {
             Professor professor = p.get();
-            ArrayList<Integer> historico = professor.getHistorico();
-            ModelAndView mv = new ModelAndView("professores/show");
-            mv.addObject("extrato", historico);
+            ModelAndView mv = new ModelAndView("professores/transferirMoedasForm");
             return mv;
         } else {
             return new ModelAndView("redirect:/professores");
         }
+    }
+
+    @ModelAttribute("alunosDropDown") 
+    public List<Aluno> populateList() {
+        List<Aluno> alunos = this.alunoRepository.findAll();
+
+        return alunos;
     }
 }

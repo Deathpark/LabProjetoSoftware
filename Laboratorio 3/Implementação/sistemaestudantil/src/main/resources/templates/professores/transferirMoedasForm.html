@@ -1,0 +1,34 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragmentos :: head('Transferir Moedas')}"></head>
+  <body>
+    <header th:replace="~{fragmentos :: header('Transferir Moedas')}"></header>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <form action="@{/professores/{professorId}/transferirMoedas/{qntMoedas}/{alunoId}(qntMoedas = ${qntMoedas}, alunoId = ${aluno.id})}" method="POST">
+            <div>
+              <label for="qntMoedas">Quantidade de moedas</label>
+              <input class="form-control" type="text" id="qntMoedas" name="qntMoedas"/>
+            </div>
+            <div>
+              <label for="qntMoedas">Aluno a receber</label>
+              <select class="form-control" id="aluno">
+                <option value="0" disabled selected hidden>Selecione um aluno</option>
+                <option th:each="aluno : ${alunosDropDown}" 
+                        th:value="${aluno.id}" 
+                        th:text="${aluno.nome}"></option>
+              </select>
+            </div>
+            <div>
+              <button class="btn btn-primary mt-4" type="submit">
+                Enviar moedas
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
