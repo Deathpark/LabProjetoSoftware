@@ -20,7 +20,7 @@ public class Professor {
     private String cpf;
     private String instituicaoEnsino;
     private int moedas;
-    private ArrayList<Integer> historico;
+    private int[] historico;
 
     public Professor(String nome, String senha, String cpf, String instituicaoEnsino, int moedas) {
         this.nome = nome;
@@ -28,6 +28,7 @@ public class Professor {
         this.cpf = cpf;
         this.instituicaoEnsino = instituicaoEnsino;
         this.moedas = 0;
+        this.historico = new int[] {};
     }
 
     public Professor() {
@@ -80,11 +81,20 @@ public class Professor {
     public void setMoedas(int moedas) {
         int diferenca = this.moedas + moedas;
         this.moedas = moedas;
-        this.historico.add(diferenca);
+        
+        if(this.historico == null) {
+            this.historico[0] = diferenca;
+        } else {
+            this.historico[historico.length] = diferenca;
+        }
+    }
+    
+    public int[] getHistorico() {
+        return this.historico;
     }
 
-    public ArrayList<Integer> getHistorico() {
-        return historico;
+    public void setHistorico(int[] historico) {
+        this.historico = historico;
     }
 
     public int transferirMoedas(int quantidade) {

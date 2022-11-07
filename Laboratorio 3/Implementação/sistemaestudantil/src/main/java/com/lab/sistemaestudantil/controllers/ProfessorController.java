@@ -108,22 +108,43 @@ public class ProfessorController {
 
     }
 
-    @PostMapping("/{id}/transferirMoedas/{qntMoedas}/{alunoId}")
-    public String transferirMoedas(@PathVariable Long id, @PathVariable int quantidade, @PathVariable long alunoId) {
-        Optional<Professor> p = this.professorRepository.findById(id);
-        Optional<Aluno> a = this.alunoRepository.findById(alunoId);
+    //@PostMapping("/{professorId}/transferirMoedas/{qntMoedas}/{alunoId}")
+    //public String transferirMoedas(@PathVariable Long professorId, @PathVariable int qntMoedas, @PathVariable long alunoId) {
+    //    Optional<Professor> p = this.professorRepository.findById(professorId);
+    //    Optional<Aluno> a = this.alunoRepository.findById(alunoId);
+    //    int qnt = -1;
+//
+    //    if(p.isPresent() && a.isPresent()) {
+    //        Professor professor = p.get();
+    //        Aluno aluno = a.get();
+    //        qnt = professor.transferirMoedas(qntMoedas);
+    //        aluno.setMoedas(aluno.getMoedas()+qnt);
+    //    }
+    //    if (qnt == -1){
+    //        return "redirect:/professores/{id}";
+    //    } else {
+    //        return "redirect:/professores/{id}";
+    //    }
+    //}
+
+    @PostMapping("/{professorId}/transferirMoedas")
+    public String transferirMoedas(@PathVariable Long professorId) {
+        Optional<Professor> p = this.professorRepository.findById(professorId);
+        Optional<Aluno> a = this.alunoRepository.findById(3L);
         int qnt = -1;
 
         if(p.isPresent() && a.isPresent()) {
             Professor professor = p.get();
             Aluno aluno = a.get();
-            qnt = professor.transferirMoedas(quantidade);
+            qnt = professor.transferirMoedas(1000);
             aluno.setMoedas(aluno.getMoedas()+qnt);
+            this.professorRepository.save(professor);
+            this.alunoRepository.save(aluno);
         }
         if (qnt == -1){
-            return "redirect:/professores/{id}";
+            return "redirect:/professores/{professorId}";
         } else {
-            return "redirect:/professores/{id}";
+            return "redirect:/professores/{professorId}";
         }
     }
 
@@ -133,6 +154,7 @@ public class ProfessorController {
         if (p.isPresent()) {
             Professor professor = p.get();
             ModelAndView mv = new ModelAndView("professores/transferirMoedasForm");
+            mv.addObject("professor", professor);
             return mv;
         } else {
             return new ModelAndView("redirect:/professores");

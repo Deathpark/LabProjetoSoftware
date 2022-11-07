@@ -25,7 +25,7 @@ public class Aluno {
     private String curso;
     private int moedas;
     private String[] vantagens;
-    private ArrayList<Integer> historico;
+    private int[] historico;
 
     public Aluno(String nome, String senha, String cpf, String rg, String endereco, String email,
             String instituicaoEnsino, String curso) {
@@ -39,6 +39,7 @@ public class Aluno {
         this.curso = curso;
         this.moedas = 0;
         this.vantagens = new String[] {};
+        this.historico = new int[] {};
     }
 
     public Aluno() {
@@ -123,7 +124,12 @@ public class Aluno {
     public void setMoedas(int moedas) {
         int diferenca = this.moedas + moedas;
         this.moedas = moedas;
-        this.historico.add(diferenca);
+        
+        if(this.historico == null) {
+            this.historico[0] = diferenca;
+        } else {
+            this.historico[historico.length] = diferenca;
+        }
     }
 
     public String[] getVantagens() {
@@ -133,5 +139,14 @@ public class Aluno {
     public void setVantagens(String[] vantagens) {
         this.vantagens = vantagens;
     }
+    
+    public int[] getHistorico() {
+        return this.historico;
+    }
+
+    public void setHistorico(int[] historico) {
+        this.historico = historico;
+    }
+    
 
 }

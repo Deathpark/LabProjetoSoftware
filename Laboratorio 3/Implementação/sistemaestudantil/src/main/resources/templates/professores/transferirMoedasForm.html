@@ -7,7 +7,11 @@
     <div class="container">
       <div class="row">
         <div class="col-6">
-          <form action="@{/professores/{professorId}/transferirMoedas/{qntMoedas}/{alunoId}(qntMoedas = ${qntMoedas}, alunoId = ${aluno.id})}" method="POST">
+          <form
+            th:object="${professor}" 
+            th:action="@{/professores/{professorId}/transferirMoedas(professorId=${professor.id})}" 
+            method="POST"
+          >
             <div>
               <label for="qntMoedas">Quantidade de moedas</label>
               <input class="form-control" type="text" id="qntMoedas" name="qntMoedas"/>
