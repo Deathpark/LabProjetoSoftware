@@ -13,20 +13,20 @@
             <p><b>Endereço:</b> <span th:text="${aluno.endereco}"></span></p>
             <p><b>Email:</b> <span th:text="${aluno.email}"></span></p>
             <p><b>Curso:</b> <span th:text="${aluno.curso}"></span></p>
-        
           </div>
         </div>
-        <div class="row">
+        <p></p><p></p><p></p>
+        <div class="col-12">
           <table class="table">
+            <p>Extrato de transferência</p>
             <thead>
               <tr>
-                <th>Diferença de moedas</th>
+                <th>Diferença</th>
               </tr>
             </thead>
             <tbody>
-              <tr th:each="professor: ${professores}">
-                <tr th:each="item, itemStat : *{historico}">
-                  <td><input th:field="*{historico[__${itemStat.index}__].value}" /></td>
+              <tr th:each="historico: ${aluno.historico}">
+                <td th:text="${historico}"></td>
               </tr>
             </tbody>
           </table>

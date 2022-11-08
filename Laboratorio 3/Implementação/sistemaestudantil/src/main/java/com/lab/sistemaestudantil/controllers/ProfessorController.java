@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.lab.sistemaestudantil.models.Professor;
+import com.lab.sistemaestudantil.models.TransferirMoedasFormModel;
 import com.lab.sistemaestudantil.models.Aluno;
 import com.lab.sistemaestudantil.repositories.ProfessorRepository;
 import com.lab.sistemaestudantil.repositories.AlunoRepository;
@@ -87,6 +88,15 @@ public class ProfessorController {
             p.setNome(professor.getNome());
             p.setSenha(professor.getSenha());
             p.setInstituicaoEnsino(professor.getInstituicaoEnsino());
+            if(professor.getMoedas() != p.getMoedas()) {
+                int diferenca = p.getMoedas() - professor.getMoedas();
+                if(p.getMoedas() > professor.getMoedas()) {
+                    p.adicionarHistorico(diferenca, true);
+                } else {
+                    p.adicionarHistorico(diferenca, false);
+                }
+            }
+            p.setMoedas(professor.getMoedas());
 
             this.professorRepository.save(p);
             ModelAndView mv = new ModelAndView("redirect:/professores/" + p.getId().toString());
@@ -108,38 +118,24 @@ public class ProfessorController {
 
     }
 
-    //@PostMapping("/{professorId}/transferirMoedas/{qntMoedas}/{alunoId}")
-    //public String transferirMoedas(@PathVariable Long professorId, @PathVariable int qntMoedas, @PathVariable long alunoId) {
-    //    Optional<Professor> p = this.professorRepository.findById(professorId);
-    //    Optional<Aluno> a = this.alunoRepository.findById(alunoId);
-    //    int qnt = -1;
-//
-    //    if(p.isPresent() && a.isPresent()) {
-    //        Professor professor = p.get();
-    //        Aluno aluno = a.get();
-    //        qnt = professor.transferirMoedas(qntMoedas);
-    //        aluno.setMoedas(aluno.getMoedas()+qnt);
-    //    }
-    //    if (qnt == -1){
-    //        return "redirect:/professores/{id}";
-    //    } else {
-    //        return "redirect:/professores/{id}";
-    //    }
-    //}
-
     @PostMapping("/{professorId}/transferirMoedas")
-    public String transferirMoedas(@PathVariable Long professorId) {
+    public String transferirMoedas(@PathVariable Long professorId, TransferirMoedasFormModel transferencia) {
         Optional<Professor> p = this.professorRepository.findById(professorId);
-        Optional<Aluno> a = this.alunoRepository.findById(3L);
+        Optional<Aluno> a = this.alunoRepository.findById(transferencia.getAlunoId());
         int qnt = -1;
 
+        
         if(p.isPresent() && a.isPresent()) {
             Professor professor = p.get();
             Aluno aluno = a.get();
-            qnt = professor.transferirMoedas(1000);
-            aluno.setMoedas(aluno.getMoedas()+qnt);
-            this.professorRepository.save(professor);
-            this.alunoRepository.save(aluno);
+            
+            qnt = professor.transferirMoedas(transferencia.getQntMoedas());
+            
+            if(qnt > -1) {
+                aluno.setMoedas(aluno.getMoedas()+qnt);
+                this.professorRepository.save(professor);
+                this.alunoRepository.save(aluno);
+            }
         }
         if (qnt == -1){
             return "redirect:/professores/{professorId}";

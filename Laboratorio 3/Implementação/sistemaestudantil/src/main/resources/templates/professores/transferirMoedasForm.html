@@ -8,8 +8,9 @@
       <div class="row">
         <div class="col-6">
           <form
-            th:object="${professor}" 
-            th:action="@{/professores/{professorId}/transferirMoedas(professorId=${professor.id})}" 
+            th:object="${transferirMoedasFormModel}" 
+            th:action="@{/professores/{professorId}/transferirMoedas
+            (professorId=${professor.id})}" 
             method="POST"
           >
             <div>
@@ -18,7 +19,7 @@
             </div>
             <div>
               <label for="qntMoedas">Aluno a receber</label>
-              <select class="form-control" id="aluno">
+              <select class="form-control" id="alunoId" name="alunoId">
                 <option value="0" disabled selected hidden>Selecione um aluno</option>
                 <option th:each="aluno : ${alunosDropDown}" 
                         th:value="${aluno.id}" 

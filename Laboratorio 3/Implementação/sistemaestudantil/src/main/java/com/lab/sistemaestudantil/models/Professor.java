@@ -20,7 +20,7 @@ public class Professor {
     private String cpf;
     private String instituicaoEnsino;
     private int moedas;
-    private int[] historico;
+    private ArrayList<Integer> historico;
 
     public Professor(String nome, String senha, String cpf, String instituicaoEnsino, int moedas) {
         this.nome = nome;
@@ -28,7 +28,7 @@ public class Professor {
         this.cpf = cpf;
         this.instituicaoEnsino = instituicaoEnsino;
         this.moedas = 0;
-        this.historico = new int[] {};
+        this.historico = new ArrayList<Integer>();
     }
 
     public Professor() {
@@ -79,31 +79,56 @@ public class Professor {
     }
 
     public void setMoedas(int moedas) {
-        int diferenca = this.moedas + moedas;
         this.moedas = moedas;
-        
-        if(this.historico == null) {
-            this.historico[0] = diferenca;
-        } else {
-            this.historico[historico.length] = diferenca;
-        }
     }
-    
-    public int[] getHistorico() {
+
+    public ArrayList<Integer> getHistorico() {
         return this.historico;
     }
 
-    public void setHistorico(int[] historico) {
+    public void setHistorico(ArrayList<Integer> historico) {
         this.historico = historico;
     }
 
     public int transferirMoedas(int quantidade) {
         int moedasAtuais = this.getMoedas();
-        if(moedasAtuais > quantidade) {
+        if(moedasAtuais >= quantidade) {
             moedasAtuais -= quantidade;
             this.setMoedas(moedasAtuais);
+            this.adicionarHistorico(quantidade, false);
             return quantidade;
         }
         return -1;
+    }
+
+    public void adicionarHistorico(int quantidade, boolean adicao) {
+        if(adicao) {
+            if(this.historico == null) {
+                this.historico = new ArrayList<Integer>();
+            }
+    
+            this.historico.add(quantidade);
+        } else {
+            if(this.historico == null) {
+                this.historico = new ArrayList<Integer>();
+            }
+    
+            this.historico.add((quantidade*-1));
+        }
+    }
+
+    public void moedasMensais() {
+        this.setMoedas(this.getMoedas()+1000);
+        
+        if(this.historico == null) {
+            this.historico = new ArrayList<Integer>();
+        }
+
+        this.historico.add(1000);
+    }
+
+    @Override
+    public String toString() {
+        return "Professor ID: " + this.id + "\nNome: " + nome;
     }
 }

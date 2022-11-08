@@ -53,6 +53,8 @@ public class AlunoController {
             Aluno c = a.get();
             ModelAndView mv = new ModelAndView("alunos/show");
             mv.addObject("aluno", c);
+            List<Integer> historico = c.getHistorico();
+            mv.addObject("historico", historico);
             return mv;
         } else {
             return new ModelAndView("redirect:/alunos");
