@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.lab.sistemaestudantil.models.Professor;
+import com.lab.sistemaestudantil.models.SistemaDeEmail;
 import com.lab.sistemaestudantil.models.TransferirMoedasFormModel;
 import com.lab.sistemaestudantil.models.Aluno;
 import com.lab.sistemaestudantil.models.Historico;
@@ -164,7 +165,10 @@ public class ProfessorController {
                 redirectAttrs.addFlashAttribute("error", "O professor não tem moedas suficientes!");
                 return "redirect:/professores/{professorId}";
             } else {
+                SistemaDeEmail email = new SistemaDeEmail();
+                email.enviarEmail();
                 redirectAttrs.addFlashAttribute("success", "Transferência realizada com sucesso!");
+                redirectAttrs.addFlashAttribute("success2", "Cupom enviado!");
                 return "redirect:/professores/{professorId}";
             }
         }

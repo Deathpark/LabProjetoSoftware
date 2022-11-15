@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.lab.sistemaestudantil.models.Aluno;
 import com.lab.sistemaestudantil.models.ComprarVantagemModel;
 import com.lab.sistemaestudantil.models.Historico;
+import com.lab.sistemaestudantil.models.SistemaDeEmail;
 import com.lab.sistemaestudantil.models.Vantagem;
 import com.lab.sistemaestudantil.models.Empresa;
 import com.lab.sistemaestudantil.repositories.AlunoRepository;
@@ -195,7 +196,10 @@ public class AlunoController {
                 redirectAttrs.addFlashAttribute("error", "O aluno não tem moedas suficientes!");
                 return "redirect:/alunos/{alunoId}";
             } else {
+                SistemaDeEmail email = new SistemaDeEmail();
+                email.enviarEmail();
                 redirectAttrs.addFlashAttribute("success", "Compra realizada com sucesso!");
+                redirectAttrs.addFlashAttribute("success2", "Cupom enviado!");
                 return "redirect:/alunos/{alunoId}";
             }
         }
