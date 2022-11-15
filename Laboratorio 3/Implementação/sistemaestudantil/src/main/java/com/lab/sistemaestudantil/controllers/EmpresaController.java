@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -179,8 +180,8 @@ public class EmpresaController {
         }
     }
 
-    @PostMapping("/{id}/vantagem/{vantagemId}")
-    public ModelAndView update(@PathVariable Long id, @PathVariable Long vantagemId, Vantagem vantagem) {
+    @PostMapping("/{idEmpresa}/vantagem/{vantagemId}")
+    public ModelAndView update(@PathVariable Long idEmpresa, @PathVariable Long vantagemId, Vantagem vantagem) {
         Optional<Vantagem> optional = this.vantagemRepository.findById(vantagemId);
         if (optional.isPresent()) {
             Vantagem v = optional.get();
@@ -189,12 +190,11 @@ public class EmpresaController {
             v.setCustoVantagem(vantagem.getCustoVantagem());
 
             this.vantagemRepository.save(v);
-            ModelAndView mv = new ModelAndView("redirect:/empresas/" + id.toString() + "/vantagem/");
+            ModelAndView mv = new ModelAndView("redirect:/empresas/" + vantagem.getEmpresaId() + "/vantagem/");
             return mv;
         } else {
-            return new ModelAndView("redirect:/empresas/" + id.toString() + "/vantagem/");
+            return new ModelAndView("redirect:/empresas/" + idEmpresa.toString() + "/vantagem/");
         }
 
     }
-
 }

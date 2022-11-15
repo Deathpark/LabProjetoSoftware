@@ -1,0 +1,35 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragmentos :: head('Comprar Vantagem')}"></head>
+  <body>
+    <header th:replace="~{fragmentos :: header('Comprar Vantagem')}"></header>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <form
+            th:object="${ComprarVantagemModel}" 
+            th:action="@{/alunos/{alunoId}/comprarVantagem
+            (alunoId = ${aluno.id})}" 
+            method="POST"
+          >
+            <div>
+              <label for="vantagemId">Aluno a receber</label>
+              <select class="form-control" id="vantagemId" name="vantagemId">
+                <option value="0" disabled selected hidden>Selecione uma vantagem</option>
+                <option th:each="vantagem : ${vantagemDropDown}" 
+                        th:value="${vantagem.id}" 
+                        th:text="${vantagem.descricao + ' | Custo em Moedas: ' + vantagem.custoVantagem}"></option>
+              </select>
+            </div>
+            <div>
+              <button class="btn btn-primary mt-4" type="submit">
+                Comprar Vantagem
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

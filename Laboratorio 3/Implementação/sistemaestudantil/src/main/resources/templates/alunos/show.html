@@ -13,6 +13,7 @@
             <p><b>Endereço:</b> <span th:text="${aluno.endereco}"></span></p>
             <p><b>Email:</b> <span th:text="${aluno.email}"></span></p>
             <p><b>Curso:</b> <span th:text="${aluno.curso}"></span></p>
+            <p><b>Moedas:</b> <span th:text="${aluno.moedas}"></span></p>
           </div>
         </div>
         <p></p><p></p><p></p>
@@ -29,7 +30,9 @@
             <tbody>
               <tr th:each="historico: ${historico}">
                 <th th:text="${historico.idRemetente}"></th>
+                <th th:text="${historico.nomeRemetente}"></th>
                 <td th:text="${historico.idDestinatario}"></td>
+                <td th:text="${historico.nomeDestinatario}"></td>
                 <td th:text="${historico.quantidade}"></td>
               </tr>
             </tbody>
@@ -39,8 +42,8 @@
           <div class="col-12">
             <a
               class="btn btn-primary"
-              th:href="@{/alunos/{alunoId}/vantagens(alunoId = ${aluno.id})}"
-              >Vantagens</a
+              th:href="@{/alunos/{alunoId}/comprarVantagemForm(alunoId = ${aluno.id})}"
+              >Comprar Vantagem</a
             >
           </div>
         </div>

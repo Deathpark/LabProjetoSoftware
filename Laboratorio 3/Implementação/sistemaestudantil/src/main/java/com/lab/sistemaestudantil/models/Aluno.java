@@ -136,6 +136,21 @@ public class Aluno {
     public String toString() {
         return "Aluno ID: " + this.id + "\nNome: " + nome;
     }
+
+    public boolean consultarMoedas(int quantidade) {
+        if(this.moedas >= quantidade) {
+            return true;
+        }
+
+        return false;
+    }
     
+    public int comprarVantagem(int quantidade) {
+        int moedasAtuais = this.getMoedas();
+        
+        moedasAtuais -= quantidade;
+        this.setMoedas(moedasAtuais);
+        return quantidade;
+    }
 
 }

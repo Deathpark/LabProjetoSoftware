@@ -86,7 +86,6 @@ public class Professor {
         moedasAtuais -= quantidade;
         this.setMoedas(moedasAtuais);
         return quantidade;
-
     }
 
 
