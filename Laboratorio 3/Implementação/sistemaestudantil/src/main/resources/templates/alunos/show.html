@@ -5,6 +5,8 @@
     <header th:replace="~{fragmentos :: header(${aluno.nome})}"></header>
 
     <main>
+      <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+      <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
       <div class="container">
         <div class="row">
           <div class="col-12">
@@ -22,7 +24,9 @@
             <p><strong>Extrato de transferência</strong></p>
             <thead>
               <tr>
+                <th>Id</th>
                 <th>Remetente</th>
+                <th>Id</th>
                 <th>Destinatário</th>
                 <th>Quantidade</th>
               </tr>
@@ -34,6 +38,24 @@
                 <td th:text="${historico.idDestinatario}"></td>
                 <td th:text="${historico.nomeDestinatario}"></td>
                 <td th:text="${historico.quantidade}"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p></p><p></p><p></p>
+        <div class="col-12">
+          <table class="table">
+            <p><strong>Vantagens disponíveis</strong></p>
+            <thead>
+              <tr>
+                <th>Descrição</th>
+                <th>Valor da Vantagem</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="vantagens: ${vantagens}">
+                <th th:text="${vantagens.descricao}"></th>
+                <th th:text="${vantagens.valorVantagem}"></th>
               </tr>
             </tbody>
           </table>

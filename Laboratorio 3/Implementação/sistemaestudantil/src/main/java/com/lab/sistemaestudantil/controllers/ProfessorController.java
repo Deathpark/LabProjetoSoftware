@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.lab.sistemaestudantil.models.Professor;
@@ -123,7 +125,12 @@ public class ProfessorController {
     }
 
     @PostMapping("/{professorId}/transferirMoedas")
-    public String transferirMoedas(@PathVariable Long professorId, TransferirMoedasFormModel transferencia) {
+    public String transferirMoedas(
+        @PathVariable Long professorId,
+        TransferirMoedasFormModel transferencia,
+        BindingResult result, 
+        RedirectAttributes redirectAttrs
+    ) {
         Optional<Professor> p = this.professorRepository.findById(professorId);
         Optional<Aluno> a = this.alunoRepository.findById(transferencia.getAlunoId());
         int qnt = -1;
@@ -154,8 +161,10 @@ public class ProfessorController {
                 }
             }
             if (qnt == -1){
+                redirectAttrs.addFlashAttribute("error", "O professor não tem moedas suficientes!");
                 return "redirect:/professores/{professorId}";
             } else {
+                redirectAttrs.addFlashAttribute("success", "Transferência realizada com sucesso!");
                 return "redirect:/professores/{professorId}";
             }
         }

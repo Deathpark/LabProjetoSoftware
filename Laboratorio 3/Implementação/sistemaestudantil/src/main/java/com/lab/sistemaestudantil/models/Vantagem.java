@@ -1,5 +1,6 @@
 package com.lab.sistemaestudantil.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.persistence.Column;
@@ -14,7 +15,7 @@ import org.springframework.lang.NonNull;
 import com.fasterxml.jackson.databind.annotation.JsonAppend.Prop;
 
 @Entity
-public class Vantagem {
+public class Vantagem{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

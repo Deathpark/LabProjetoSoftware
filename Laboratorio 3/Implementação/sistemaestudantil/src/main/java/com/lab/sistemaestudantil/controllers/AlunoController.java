@@ -4,15 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.annotations.SourceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.lab.sistemaestudantil.models.Aluno;
@@ -74,7 +77,17 @@ public class AlunoController {
             List<Historico> todasTransacoes = this.historicoRepository.findAll();
             List<Historico> historico = todasTransacoes.stream().filter(
                 h -> h.getIdDestinatario() == aluno.getId() || h.getIdRemetente() == aluno.getId()).toList();
+            List<Vantagem> vantagens = new ArrayList<Vantagem>();
+
+            aluno.getVantagens().stream().forEach((vantagem) -> {
+                Optional<Vantagem> v = this.vantagemRepository.findById(vantagem);
+                if(v.isPresent()) {
+                    vantagens.add(v.get());
+                }
+            });
+            
             mv.addObject("historico", historico);
+            mv.addObject("vantagens", vantagens);
             return mv;
         } else {
             return new ModelAndView("redirect:/alunos");
@@ -144,7 +157,12 @@ public class AlunoController {
     }
 
     @PostMapping("/{alunoId}/comprarVantagem")
-    public String transferirMoedas(@PathVariable Long alunoId, ComprarVantagemModel compra) {
+    public String comprarVantagem(
+        @PathVariable Long alunoId, 
+        ComprarVantagemModel compra, 
+        BindingResult result, 
+        RedirectAttributes redirectAttrs
+    ) {
         Optional<Aluno> a = this.alunoRepository.findById(alunoId);
         Optional<Vantagem> v = this.vantagemRepository.findById(compra.getVantagemId());
         int qnt = -1;
@@ -155,7 +173,7 @@ public class AlunoController {
             
             boolean podeComprar = aluno.consultarMoedas(vantagem.getCustoVantagem());
             if(podeComprar) {
-                qnt = aluno.comprarVantagem(vantagem.getCustoVantagem());
+                qnt = aluno.comprarVantagem(vantagem.getCustoVantagem(), vantagem);
                 
                 if(qnt > -1) {
                     this.alunoRepository.save(aluno);
@@ -174,8 +192,10 @@ public class AlunoController {
                 }
             }
             if (qnt == -1){
+                redirectAttrs.addFlashAttribute("error", "O aluno não tem moedas suficientes!");
                 return "redirect:/alunos/{alunoId}";
             } else {
+                redirectAttrs.addFlashAttribute("success", "Compra realizada com sucesso!");
                 return "redirect:/alunos/{alunoId}";
             }
         }

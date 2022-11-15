@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.type.descriptor.sql.VarbinaryTypeDescriptor;
+
 @Entity
 public class Aluno {
     @Id
@@ -24,7 +26,7 @@ public class Aluno {
     private String instituicaoEnsino;
     private String curso;
     private int moedas;
-    private String[] vantagens;
+    private ArrayList<Long> vantagens;
 
     public Aluno(String nome, String senha, String cpf, String rg, String endereco, String email,
             String instituicaoEnsino, String curso) {
@@ -37,7 +39,7 @@ public class Aluno {
         this.instituicaoEnsino = instituicaoEnsino;
         this.curso = curso;
         this.moedas = 0;
-        this.vantagens = new String[] {};
+        this.vantagens = new ArrayList<Long>();
     }
 
     public Aluno() {
@@ -124,11 +126,11 @@ public class Aluno {
         this.moedas = moedas;
     }
 
-    public String[] getVantagens() {
+    public ArrayList<Long> getVantagens() {
         return vantagens;
     }
 
-    public void setVantagens(String[] vantagens) {
+    public void setVantagens(ArrayList<Long> vantagens) {
         this.vantagens = vantagens;
     }
 
@@ -145,11 +147,18 @@ public class Aluno {
         return false;
     }
     
-    public int comprarVantagem(int quantidade) {
+    public int comprarVantagem(int quantidade, Vantagem vantagem) {
         int moedasAtuais = this.getMoedas();
         
         moedasAtuais -= quantidade;
         this.setMoedas(moedasAtuais);
+        
+        if(this.vantagens == null) {
+            this.vantagens = new ArrayList<Long>();
+        }
+        
+        this.vantagens.add(vantagem.getId());
+
         return quantidade;
     }
 
