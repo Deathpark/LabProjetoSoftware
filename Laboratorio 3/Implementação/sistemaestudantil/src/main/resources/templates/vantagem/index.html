@@ -27,17 +27,17 @@
                 <td th:text="${vantagem.custoVantagem}"></td>
                 <td>
                   <a
-                    th:href="@{/empresas/{idEmpresa}/vantagem/{vantagemId}(vantagemId = ${vantagem.id}, idEmpresa = ${idEmpresa})}"
+                    th:href="@{/empresas/{id}/vantagem/{vantagemId}(vantagemId = ${vantagem.id}, id = ${empresa.id})}"
                     >Detalhes</a>
                 </td>
                 <td>
                   <a
-                    th:href="@{/empresas/{idEmpresa}/vantagem/{vantagemId}/edit(vantagemId = ${vantagem.id}, idEmpresa = ${idEmpresa})}"
+                    th:href="@{/empresas/{id}/vantagem/{vantagemId}/edit(vantagemId = ${vantagem.id}, id = ${empresa.id})}"
                     >Editar</a>
                 </td>
                 <td>
                   <a
-                    th:href="@{/empresas/{idEmpresa}/vantagem/{vantagemId}/delete(vantagemId = ${vantagem.id}, idEmpresa = ${idEmpresa})}"
+                    th:href="@{/empresas/{id}/vantagem/{vantagemId}/delete(vantagemId = ${vantagem.id}, id = ${empresa.id})}"
                     >Deletar</a>
                 </td>
               </tr>

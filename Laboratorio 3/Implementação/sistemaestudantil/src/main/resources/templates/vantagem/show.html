@@ -2,54 +2,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <head th:replace="~{fragmentos :: head('Lista de empresas')}"></head>
   <body>
-    <header th:replace="~{fragmentos :: header(${empresa.nome})}"></header>
+    <header th:replace="~{fragmentos :: header(${vantagem.descricao})}"></header>
 
     <main>
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <p><b>Nome:</b> <span th:text="${empresa.nome}"></span></p>
+            <p><b>Id:</b> <span th:text="${vantagem.id}"></span></p>
+            <p><b>Descrição:</b> <span th:text="${vantagem.descricao}"></span></p>
+            <p><b>Valor da Vantagem:</b> <span th:text="${vantagem.valorVantagem}"></span></p>
+            <p><b>Custo da Vantagem:</b> <span th:text="${vantagem.custoVantagem}"></span></p>
           </div>
         </div>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Descrição</th>
-              <th>Valor da Vantagem</th>
-              <th>Custo da Vantagem</th>
-              <th>-</th>
-              <th>-</th>
-              <th>-</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="vantagem: ${vantagens}">
-              <th th:text="${vantagem.id}"></th>
-              <td th:text="${vantagem.descricao}"></td>
-              <td th:text="${vantagem.valorVantagem}"></td>
-              <td th:text="${vantagem.custoVantagem}"></td>
-              <td>
-                <a
-                  th:href="@{/vantagem/{vantagemId}(vantagemId = ${vantagem.id})}"
-                  >Detalhes</a
-                >
-              </td>
-              <td>
-                <a
-                  th:href="@{/vantagem/{vantagemId}/edit(vantagemId = ${vantagem.id})}"
-                  >Editar</a
-                >
-              </td>
-              <td>
-                <a
-                  th:href="@{/vantagem/{vantagemId}/delete(vantagemId = ${vantagem.id})}"
-                  >Deletar</a
-                >
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="row">
+          <div class="col-12">
+            <a
+              class="btn btn-primary"
+              th:href="@{/empresas/{id}/vantagem/(id = ${empresa.id})}"
+              >Voltar</a
+            >
+          </div>
+        </div>
       </div>
     </main>
   </body>

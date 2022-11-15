@@ -129,19 +129,24 @@ public class ProfessorController {
             Professor professor = p.get();
             Aluno aluno = a.get();
             
-            qnt = professor.transferirMoedas(transferencia.getQntMoedas());
-            
-            if(qnt > -1) {
-                aluno.setMoedas(aluno.getMoedas()+qnt);
-                this.professorRepository.save(professor);
-                this.alunoRepository.save(aluno);
+            boolean podeTransferir = professor.consultarMoedas(transferencia.getQntMoedas());
+            if(podeTransferir) {
+                qnt = professor.transferirMoedas(transferencia.getQntMoedas());
+                
+                if(qnt > -1) {
+                    aluno.setMoedas(aluno.getMoedas()+qnt);
+                    this.professorRepository.save(professor);
+                    this.alunoRepository.save(aluno);
+                }
+            }
+            if (qnt == -1){
+                return "redirect:/professores/{professorId}";
+            } else {
+                return "redirect:/professores/{professorId}";
             }
         }
-        if (qnt == -1){
-            return "redirect:/professores/{professorId}";
-        } else {
-            return "redirect:/professores/{professorId}";
-        }
+        
+        return "redirect:/professores/{professorId}";
     }
 
     @GetMapping("/{id}/transferirMoedasForm")

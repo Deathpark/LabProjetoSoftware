@@ -107,14 +107,17 @@ public class EmpresaController {
 
     }
 
-    @GetMapping("/{id}/vantagem")
-    public ModelAndView indexVantagem(@PathVariable Long id) {
 
+    @GetMapping("/{id}/vantagem")
+    public ModelAndView indexVantagem(@PathVariable long id) {
         List<Vantagem> todasVantagens = this.vantagemRepository.findAll();
         List<Vantagem> vantagens = todasVantagens.stream().filter(v -> v.getEmpresaId() == id).toList();
+        Optional<Empresa> e = this.empresaRepository.findById(id);
+        Empresa empresa = e.get();
+        
         ModelAndView mv = new ModelAndView("vantagem/index");
         mv.addObject("vantagens", vantagens);
-        mv.addObject("idEmpresa", id);
+        mv.addObject("empresa", empresa);
 
         return mv;
     }
@@ -157,6 +160,22 @@ public class EmpresaController {
             return mv;
         } else {
             return new ModelAndView("redirect:/empresas/" + id.toString() + "/vantagem/");
+        }
+    }
+
+    @GetMapping("/{id}/vantagem/{vantagemId}")
+    public ModelAndView showVantagem(@PathVariable Long id, @PathVariable Long vantagemId) {
+        Optional<Vantagem> vantagem = this.vantagemRepository.findById(vantagemId);
+        Optional<Empresa> empresa = this.empresaRepository.findById(id);
+        if (vantagem.isPresent()) {
+            Vantagem v = vantagem.get();
+            Empresa e = empresa.get();
+            ModelAndView mv = new ModelAndView("vantagem/show");
+            mv.addObject("vantagem", v);
+            mv.addObject("empresa", e);
+            return mv;
+        } else {
+            return new ModelAndView("redirect:/vantagem");
         }
     }
 

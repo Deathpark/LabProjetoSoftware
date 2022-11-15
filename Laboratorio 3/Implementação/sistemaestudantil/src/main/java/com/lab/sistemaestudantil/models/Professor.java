@@ -92,13 +92,12 @@ public class Professor {
 
     public int transferirMoedas(int quantidade) {
         int moedasAtuais = this.getMoedas();
-        if(moedasAtuais >= quantidade) {
-            moedasAtuais -= quantidade;
-            this.setMoedas(moedasAtuais);
-            this.adicionarHistorico(quantidade, false);
-            return quantidade;
-        }
-        return -1;
+        
+        moedasAtuais -= quantidade;
+        this.setMoedas(moedasAtuais);
+        this.adicionarHistorico(quantidade, false);
+        return quantidade;
+
     }
 
     public void adicionarHistorico(int quantidade, boolean adicao) {
@@ -119,12 +118,20 @@ public class Professor {
 
     public void moedasMensais() {
         this.setMoedas(this.getMoedas()+1000);
-        
+
         if(this.historico == null) {
             this.historico = new ArrayList<Integer>();
         }
 
         this.historico.add(1000);
+    }
+
+    public boolean consultarMoedas(int quantidade) {
+        if(this.getMoedas() >= quantidade) {
+            return true;
+        }
+        
+        return false;
     }
 
     @Override
