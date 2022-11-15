@@ -19,12 +19,20 @@
           <table class="table">
             <thead>
               <tr>
-                <th>Diferença</th>
+                <th>Id</th>
+                <th>Remetente</th>
+                <th>Id</th>
+                <th>Destinatário</th>
+                <th>Quantidade</th>
               </tr>
             </thead>
             <tbody>
-              <tr th:each="historico: ${professor.historico}">
-                <td th:text="${historico}"></td>
+              <tr th:each="historico: ${historico}">
+                <th th:text="${historico.idRemetente}"></th>
+                <th th:text="${historico.nomeRemetente}"></th>
+                <td th:text="${historico.idDestinatario}"></td>
+                <td th:text="${historico.nomeDestinatario}"></td>
+                <td th:text="${historico.quantidade}"></td>
               </tr>
             </tbody>
           </table>

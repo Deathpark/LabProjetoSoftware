@@ -23,11 +23,17 @@ public class Historico {
     @Column(nullable = false)
     private long idDestinatario;
     @Column(nullable = false)
+    private String nomeRemetente;
+    @Column(nullable = false)
+    private String nomeDestinatario;
+    @Column(nullable = false)
     private int quantidade;
 
-    public Historico(long idRemetente, long idDestinatario, int quantidade) {
+    public Historico(long idRemetente, String nomeRemetente, long idDestinatario, String nomeDestinatario, int quantidade) {
         this.idRemetente = idRemetente;
+        this.nomeRemetente = nomeRemetente;
         this.idDestinatario = idDestinatario;
+        this.nomeDestinatario = nomeDestinatario;
         this.quantidade = quantidade;
     }
 
@@ -50,12 +56,28 @@ public class Historico {
         this.idRemetente = idRemetente;
     }
 
+    public String getNomeRemetente() {
+        return nomeRemetente;
+    }
+
+    public void setNomeRemetente(String nomeRemetente) {
+        this.nomeRemetente = nomeRemetente;
+    }
+
     public long getIdDestinatario() {
         return idDestinatario;
     }
 
     public void setIdDestinatario(long idDestinatario) {
         this.idDestinatario = idDestinatario;
+    }
+
+    public String getNomeDestinatario() {
+        return nomeDestinatario;
+    }
+
+    public void setNomeDestinatario(String nomeDestinatario) {
+        this.nomeDestinatario = nomeDestinatario;
     }
 
     public int getQuantidade() {

@@ -19,8 +19,10 @@ import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.lab.sistemaestudantil.models.Professor;
 import com.lab.sistemaestudantil.models.TransferirMoedasFormModel;
 import com.lab.sistemaestudantil.models.Aluno;
+import com.lab.sistemaestudantil.models.Historico;
 import com.lab.sistemaestudantil.repositories.ProfessorRepository;
 import com.lab.sistemaestudantil.repositories.AlunoRepository;
+import com.lab.sistemaestudantil.repositories.HistoricoRepository;
 
 @Controller
 @RequestMapping(value = "/professores")
@@ -29,6 +31,8 @@ public class ProfessorController {
     private ProfessorRepository professorRepository;
     @Autowired
     private AlunoRepository alunoRepository;
+    @Autowired
+    private HistoricoRepository historicoRepository;
 
     @GetMapping("")
     public ModelAndView index() {
@@ -58,9 +62,16 @@ public class ProfessorController {
     public ModelAndView show(@PathVariable Long id) {
         Optional<Professor> p = this.professorRepository.findById(id);
         if (p.isPresent()) {
+            //Professor
             Professor professor = p.get();
             ModelAndView mv = new ModelAndView("professores/show");
             mv.addObject("professor", professor);
+
+            //Historico
+            List<Historico> todasTransacoes = this.historicoRepository.findAll();
+            List<Historico> historico = todasTransacoes.stream().filter(h -> h.getIdRemetente() == professor.getId()).toList();
+            mv.addObject("historico", historico);
+
             return mv;
         } else {
             return new ModelAndView("redirect:/professores");
@@ -88,14 +99,7 @@ public class ProfessorController {
             p.setNome(professor.getNome());
             p.setSenha(professor.getSenha());
             p.setInstituicaoEnsino(professor.getInstituicaoEnsino());
-            if(professor.getMoedas() != p.getMoedas()) {
-                int diferenca = p.getMoedas() - professor.getMoedas();
-                if(p.getMoedas() > professor.getMoedas()) {
-                    p.adicionarHistorico(diferenca, true);
-                } else {
-                    p.adicionarHistorico(diferenca, false);
-                }
-            }
+
             p.setMoedas(professor.getMoedas());
 
             this.professorRepository.save(p);
@@ -137,6 +141,16 @@ public class ProfessorController {
                     aluno.setMoedas(aluno.getMoedas()+qnt);
                     this.professorRepository.save(professor);
                     this.alunoRepository.save(aluno);
+                    
+                    //criação de histórico
+                    Historico historico = new Historico(
+                        professor.getId(), 
+                        professor.getNome(), 
+                        aluno.getId(),
+                        aluno.getNome(),
+                        transferencia.getQntMoedas()
+                    );
+                    this.historicoRepository.save(historico);
                 }
             }
             if (qnt == -1){
@@ -145,7 +159,7 @@ public class ProfessorController {
                 return "redirect:/professores/{professorId}";
             }
         }
-        
+
         return "redirect:/professores/{professorId}";
     }
 

@@ -20,7 +20,6 @@ public class Professor {
     private String cpf;
     private String instituicaoEnsino;
     private int moedas;
-    private ArrayList<Integer> historico;
 
     public Professor(String nome, String senha, String cpf, String instituicaoEnsino, int moedas) {
         this.nome = nome;
@@ -28,7 +27,6 @@ public class Professor {
         this.cpf = cpf;
         this.instituicaoEnsino = instituicaoEnsino;
         this.moedas = 0;
-        this.historico = new ArrayList<Integer>();
     }
 
     public Professor() {
@@ -82,48 +80,18 @@ public class Professor {
         this.moedas = moedas;
     }
 
-    public ArrayList<Integer> getHistorico() {
-        return this.historico;
-    }
-
-    public void setHistorico(ArrayList<Integer> historico) {
-        this.historico = historico;
-    }
-
     public int transferirMoedas(int quantidade) {
         int moedasAtuais = this.getMoedas();
         
         moedasAtuais -= quantidade;
         this.setMoedas(moedasAtuais);
-        this.adicionarHistorico(quantidade, false);
         return quantidade;
 
     }
 
-    public void adicionarHistorico(int quantidade, boolean adicao) {
-        if(adicao) {
-            if(this.historico == null) {
-                this.historico = new ArrayList<Integer>();
-            }
-    
-            this.historico.add(quantidade);
-        } else {
-            if(this.historico == null) {
-                this.historico = new ArrayList<Integer>();
-            }
-    
-            this.historico.add((quantidade*-1));
-        }
-    }
 
     public void moedasMensais() {
         this.setMoedas(this.getMoedas()+1000);
-
-        if(this.historico == null) {
-            this.historico = new ArrayList<Integer>();
-        }
-
-        this.historico.add(1000);
     }
 
     public boolean consultarMoedas(int quantidade) {

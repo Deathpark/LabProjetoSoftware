@@ -1,5 +1,6 @@
 package com.lab.sistemaestudantil.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,13 +15,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.lab.sistemaestudantil.models.Aluno;
+import com.lab.sistemaestudantil.models.Historico;
 import com.lab.sistemaestudantil.repositories.AlunoRepository;
+import com.lab.sistemaestudantil.repositories.HistoricoRepository;
 
 @Controller
 @RequestMapping(value = "/alunos")
 public class AlunoController {
     @Autowired
     private AlunoRepository alunoRepository;
+    @Autowired
+    private HistoricoRepository historicoRepository;
 
     @GetMapping("")
     public ModelAndView index() {
@@ -50,10 +55,15 @@ public class AlunoController {
     public ModelAndView show(@PathVariable Long id) {
         Optional<Aluno> a = this.alunoRepository.findById(id);
         if (a.isPresent()) {
-            Aluno c = a.get();
+            //Aluno
+            Aluno aluno = a.get();
             ModelAndView mv = new ModelAndView("alunos/show");
-            mv.addObject("aluno", c);
-            List<Integer> historico = c.getHistorico();
+            mv.addObject("aluno", aluno);
+
+            //Historico
+            List<Historico> todasTransacoes = this.historicoRepository.findAll();
+            List<Historico> historico = todasTransacoes.stream().filter(
+                h -> h.getIdDestinatario() == aluno.getId() || h.getIdRemetente() == aluno.getId()).toList();
             mv.addObject("historico", historico);
             return mv;
         } else {
