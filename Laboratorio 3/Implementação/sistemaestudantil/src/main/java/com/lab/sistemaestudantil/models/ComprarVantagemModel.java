@@ -1,17 +1,9 @@
 package com.lab.sistemaestudantil.models;
 
-import java.util.ArrayList;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.springframework.lang.NonNull;
-
-import com.fasterxml.jackson.databind.annotation.JsonAppend.Prop;
 
 @Entity
 public class ComprarVantagemModel {

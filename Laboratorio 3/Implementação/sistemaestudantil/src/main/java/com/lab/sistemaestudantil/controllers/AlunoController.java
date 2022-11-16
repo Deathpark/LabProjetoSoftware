@@ -80,12 +80,15 @@ public class AlunoController {
                 h -> h.getIdDestinatario() == aluno.getId() || h.getIdRemetente() == aluno.getId()).toList();
             List<Vantagem> vantagens = new ArrayList<Vantagem>();
 
-            aluno.getVantagens().stream().forEach((vantagem) -> {
+            ArrayList<Long> vantagensAluno = aluno.getVantagens();
+            if (vantagensAluno != null) {
+                vantagensAluno.stream().forEach((vantagem) -> {
                 Optional<Vantagem> v = this.vantagemRepository.findById(vantagem);
                 if(v.isPresent()) {
                     vantagens.add(v.get());
                 }
-            });
+                });
+            }
             
             mv.addObject("historico", historico);
             mv.addObject("vantagens", vantagens);

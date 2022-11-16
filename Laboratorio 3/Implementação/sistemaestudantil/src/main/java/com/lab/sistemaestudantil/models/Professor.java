@@ -1,7 +1,5 @@
 package com.lab.sistemaestudantil.models;
 
-import java.util.ArrayList;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
