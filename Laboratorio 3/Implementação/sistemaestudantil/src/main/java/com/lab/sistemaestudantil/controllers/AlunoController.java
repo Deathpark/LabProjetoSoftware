@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.annotations.SourceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.lab.sistemaestudantil.models.Aluno;
 import com.lab.sistemaestudantil.models.ComprarVantagemModel;
 import com.lab.sistemaestudantil.models.Historico;
@@ -80,12 +78,15 @@ public class AlunoController {
                 h -> h.getIdDestinatario() == aluno.getId() || h.getIdRemetente() == aluno.getId()).toList();
             List<Vantagem> vantagens = new ArrayList<Vantagem>();
 
-            aluno.getVantagens().stream().forEach((vantagem) -> {
+            ArrayList<Long> vantagensAluno = aluno.getVantagens();
+            if (vantagensAluno != null) {
+                vantagensAluno.stream().forEach((vantagem) -> {
                 Optional<Vantagem> v = this.vantagemRepository.findById(vantagem);
                 if(v.isPresent()) {
                     vantagens.add(v.get());
                 }
-            });
+                });
+            }
             
             mv.addObject("historico", historico);
             mv.addObject("vantagens", vantagens);

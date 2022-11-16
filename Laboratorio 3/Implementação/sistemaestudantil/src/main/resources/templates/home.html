@@ -2,9 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <head th:replace="~{fragmentos :: head('Home')}"></head>
   <body>
-    <header
-      th:replace="~{fragmentos :: header('Sistema estudantil')}"
-    ></header>
+    <header th:replace="~{fragmentos :: header('Sistema estudantil')}"></header>
 
     <main>
       <div class="container mt-4">
@@ -30,6 +28,16 @@
           >
             Professores
           </button>
+        </div>
+        <div>
+          <form action="/login" method="POST">
+            <h2>Login</h2>
+            <label for="nome">Nome</label>
+            <input class="form-control" type="text" id="nome" name="nome" />
+            <label for="senha">Senha</label>
+            <input class="form-control" type="text" id="senha" name="senha" />
+            <button class="btn btn-primary" type="submit">Login</button>
+          </form>
         </div>
       </div>
     </main>

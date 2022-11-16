@@ -1,21 +1,13 @@
 package com.lab.sistemaestudantil.models;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.springframework.lang.NonNull;
-
-import com.fasterxml.jackson.databind.annotation.JsonAppend.Prop;
 
 @Entity
-public class Vantagem{
+public class Vantagem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,7 +18,8 @@ public class Vantagem{
     private int custoVantagem;
     private long idEmpresa;
 
-    public Vantagem(String descricao, double valorVantagem, int custoVantagem, long idEmpresa, String endereco, String profissao,
+    public Vantagem(String descricao, double valorVantagem, int custoVantagem, long idEmpresa, String endereco,
+            String profissao,
             double[] rendimentos) {
         this.descricao = descricao;
         this.valorVantagem = valorVantagem;
@@ -67,7 +60,7 @@ public class Vantagem{
 
     public void setCustoVantagem(int custoVantagem) {
         this.custoVantagem = custoVantagem;
-    } 
+    }
 
     public void setEmpresaId(long idEmpresa) {
         this.idEmpresa = idEmpresa;
