@@ -75,7 +75,9 @@ public class AlunoController {
             //Historico
             List<Historico> todasTransacoes = this.historicoRepository.findAll();
             List<Historico> historico = todasTransacoes.stream().filter(
-                h -> h.getIdDestinatario() == aluno.getId() || h.getIdRemetente() == aluno.getId()).toList();
+                h -> h.getIdDestinatario() == aluno.getId() 
+                || (h.getIdRemetente() == aluno.getId() && h.getTipoRemetente().equals("ALUNO"))
+            ).toList();
             List<Vantagem> vantagens = new ArrayList<Vantagem>();
 
             ArrayList<Long> vantagensAluno = aluno.getVantagens();
@@ -188,7 +190,8 @@ public class AlunoController {
                         aluno.getNome(), 
                         vantagem.getEmpresaId(),
                         empresa.getNome(),
-                        vantagem.getCustoVantagem()
+                        vantagem.getCustoVantagem(),
+                        "ALUNO"
                     );
                     this.historicoRepository.save(historico);
                 }

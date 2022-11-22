@@ -21,13 +21,15 @@ public class Historico {
     private String nomeDestinatario;
     @Column(nullable = false)
     private int quantidade;
+    private String tipoRemetente;
 
-    public Historico(long idRemetente, String nomeRemetente, long idDestinatario, String nomeDestinatario, int quantidade) {
+    public Historico(long idRemetente, String nomeRemetente, long idDestinatario, String nomeDestinatario, int quantidade, String tipoRemetente) {
         this.idRemetente = idRemetente;
         this.nomeRemetente = nomeRemetente;
         this.idDestinatario = idDestinatario;
         this.nomeDestinatario = nomeDestinatario;
         this.quantidade = quantidade;
+        this.tipoRemetente = tipoRemetente;
     }
 
     public Historico() {
@@ -80,4 +82,14 @@ public class Historico {
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
+
+    public String getTipoRemetente() {
+        return tipoRemetente;
+    }
+
+    public void setTipoRemetente(String tipoRemetente) {
+        this.tipoRemetente = tipoRemetente;
+    }
+
+    
 }

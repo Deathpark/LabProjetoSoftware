@@ -13,6 +13,10 @@
             method="POST"
           >
             <div>
+              <label for="nome">Nome</label>
+              <input class="form-control" type="text" th:field="*{nome}" />
+            </div>
+            <div>
               <label for="descricao">Descrição</label>
               <input class="form-control" type="text" th:field="*{descricao}" />
             </div>
@@ -23,6 +27,10 @@
             <div>
               <label for="custoVantagem">Custo da Vantagem</label>
               <input class="form-control" type="text" th:field="*{custoVantagem}" />
+            </div>
+            <div>
+              <label for="foto">Foto (Link da foto na internet)</label>
+              <input class="form-control" type="text" th:field="*{foto}" />
             </div>
             <div>
               <button class="btn btn-primary mt-4" type="submit">Salvar</button>

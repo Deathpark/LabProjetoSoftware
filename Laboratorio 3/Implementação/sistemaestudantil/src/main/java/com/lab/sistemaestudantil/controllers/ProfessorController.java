@@ -153,7 +153,8 @@ public class ProfessorController {
                         professor.getNome(), 
                         aluno.getId(),
                         aluno.getNome(),
-                        transferencia.getQntMoedas()
+                        transferencia.getQntMoedas(),
+                        "PROFESSOR"
                     );
                     this.historicoRepository.save(historico);
                 }

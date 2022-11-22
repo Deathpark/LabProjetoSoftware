@@ -12,19 +12,22 @@ public class Vantagem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private String descricao;
+    private String nome;
     @Column(nullable = false)
     private double valorVantagem;
     private int custoVantagem;
     private long idEmpresa;
+    private String foto;
+    private String descricao;
 
-    public Vantagem(String descricao, double valorVantagem, int custoVantagem, long idEmpresa, String endereco,
-            String profissao,
-            double[] rendimentos) {
+    public Vantagem(String nome, double valorVantagem, int custoVantagem, long idEmpresa, String endereco,
+            String profissao, String foto, String descricao) {
         this.descricao = descricao;
         this.valorVantagem = valorVantagem;
         this.custoVantagem = custoVantagem;
         this.idEmpresa = idEmpresa;
+        this.foto = foto;
+        this.descricao = descricao;
     }
 
     public Vantagem() {
@@ -36,6 +39,14 @@ public class Vantagem {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getDescricao() {
@@ -70,19 +81,12 @@ public class Vantagem {
         return idEmpresa;
     }
 
-    public void criarVantagem() {
-
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
-    public void atualizarVantagem(int vantagem) {
-
+    public String getFoto() {
+        return foto;
     }
 
-    public void consultarVantagem(int vantagem) {
-
-    }
-
-    public void cancelarVantagem(int vantagem) {
-
-    }
 }
