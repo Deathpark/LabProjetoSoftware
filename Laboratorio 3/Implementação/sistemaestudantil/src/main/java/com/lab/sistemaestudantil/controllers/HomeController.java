@@ -28,7 +28,7 @@ public class HomeController {
         if (!list.isEmpty()) {
             Usuario user = list.get(0);
             if (user.getSenha().equals(usuario.getSenha()) && user.getClass().getSimpleName().equals("Aluno")) {
-                return "redirect:/alunos" + user.getId();
+                return "redirect:/alunos/" + user.getId();
             } else if (user.getSenha().equals(usuario.getSenha()) && user.getClass().getSimpleName().equals("Empresa")) {
                 return "redirect:/empresas/" + user.getId();
             } else if (user.getSenha().equals(usuario.getSenha()) && user.getClass().getSimpleName().equals("Professor")) {

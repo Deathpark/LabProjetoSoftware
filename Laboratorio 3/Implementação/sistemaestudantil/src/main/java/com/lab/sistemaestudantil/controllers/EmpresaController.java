@@ -46,7 +46,7 @@ public class EmpresaController {
     @PostMapping("")
     public String create(Empresa empresa) {
         this.empresaRepository.save(empresa);
-        return "redirect:/empresas";
+        return "redirect:/";
     }
 
     @GetMapping("/{id}")

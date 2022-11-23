@@ -60,7 +60,7 @@ public class AlunoController {
     @PostMapping("")
     public String create(Aluno a) {
         this.alunoRepository.save(a);
-        return "redirect:/alunos";
+        return "redirect:/";
     }
 
     @GetMapping("/{id}")
