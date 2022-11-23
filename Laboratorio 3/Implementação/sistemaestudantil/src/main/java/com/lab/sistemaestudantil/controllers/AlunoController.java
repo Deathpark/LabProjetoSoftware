@@ -118,7 +118,11 @@ public class AlunoController {
             Aluno c = optional.get();
             c.setNome(aluno.getNome());
             c.setSenha(aluno.getSenha());
+            c.setCpf(aluno.getCpf());
+            c.setEndereco(aluno.getEndereco());
             c.setEmail(aluno.getEmail());
+            c.setCurso(aluno.getCurso());
+            c.setInstituicaoEnsino(aluno.getInstituicaoEnsino());
 
             this.alunoRepository.save(c);
             ModelAndView mv = new ModelAndView("redirect:/alunos/" + c.getId().toString());
