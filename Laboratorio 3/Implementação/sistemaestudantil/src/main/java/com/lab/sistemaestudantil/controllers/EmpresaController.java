@@ -176,8 +176,8 @@ public class EmpresaController {
         }
     }
 
-    @PostMapping("/{idEmpresa}/vantagem/{vantagemId}")
-    public ModelAndView update(@PathVariable Long idEmpresa, @PathVariable Long vantagemId, Vantagem vantagem) {
+    @PostMapping("/{id}/vantagem/{vantagemId}")
+    public ModelAndView update(@PathVariable Long id, @PathVariable Long vantagemId, Vantagem vantagem) {
         Optional<Vantagem> optional = this.vantagemRepository.findById(vantagemId);
         if (optional.isPresent()) {
             Vantagem v = optional.get();
@@ -186,10 +186,11 @@ public class EmpresaController {
             v.setCustoVantagem(vantagem.getCustoVantagem());
 
             this.vantagemRepository.save(v);
-            ModelAndView mv = new ModelAndView("redirect:/empresas/" + vantagem.getEmpresaId() + "/vantagem/");
+            System.out.println("------------------------\n\n\n" + id + "\n\n\n-----------------------------");
+            ModelAndView mv = new ModelAndView("redirect:/empresas/" + id.toString() + "/vantagem/");
             return mv;
         } else {
-            return new ModelAndView("redirect:/empresas/" + idEmpresa.toString() + "/vantagem/");
+            return new ModelAndView("redirect:/empresas/" + id.toString() + "/vantagem/");
         }
 
     }

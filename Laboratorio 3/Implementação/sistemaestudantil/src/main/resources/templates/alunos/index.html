@@ -13,6 +13,7 @@
                 <th>Id</th>
                 <th>Nome</th>
                 <th>CPF</th>
+                <th>Email</th>
                 <th>-</th>
                 <th>-</th>
                 <th>-</th>
@@ -23,6 +24,7 @@
                 <th th:text="${aluno.id}"></th>
                 <td th:text="${aluno.nome}"></td>
                 <td th:text="${aluno.cpf}"></td>
+                <td th:text="${aluno.email}"></td>
                 <td>
                   <a
                     th:href="@{/alunos/{alunoId}(alunoId = ${aluno.id})}"

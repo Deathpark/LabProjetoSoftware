@@ -12,7 +12,6 @@
               <tr>
                 <th>Id</th>
                 <th>Nome</th>
-                <th>Descrição</th>
                 <th>Valor da Vantagem</th>
                 <th>Custo da Vantagem</th>
                 <th>-</th>
@@ -23,7 +22,7 @@
             <tbody>
               <tr th:each="vantagem: ${vantagens}">
                 <th th:text="${vantagem.id}"></th>
-                <td th:text="${vantagem.descricao}"></td>
+                <th th:text="${vantagem.nome}"></th>
                 <td th:text="${vantagem.valorVantagem}"></td>
                 <td th:text="${vantagem.custoVantagem}"></td>
                 <td>
@@ -48,6 +47,7 @@
       </div>
       <div class="row">
         <div class="col-12">
+          <a th:href="@{/empresas/{id}(id = ${empresa.id})}">Voltar</a>
           <a th:href="@{/empresas/{id}/vantagem/new(id = ${empresa.id})}">Nova vantagem</a>
         </div>
       </div>

@@ -17,12 +17,13 @@ public class Empresa extends Usuario {
     private String nome;
     @Column(nullable = false)
     private String senha;
+    private String email;
     private ArrayList<Vantagem> vantagens;
 
-    public Empresa(String nome, String senha, ArrayList<Vantagem> vantagens) {
+    public Empresa(String nome, String senha, String email) {
         this.nome = nome;
         this.senha = senha;
-        this.vantagens = vantagens;
+        this.email = email;
     }
 
     public Empresa() {
@@ -58,5 +59,13 @@ public class Empresa extends Usuario {
 
     public void setVantagens(ArrayList<Vantagem> vantagens) {
         this.vantagens = vantagens;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

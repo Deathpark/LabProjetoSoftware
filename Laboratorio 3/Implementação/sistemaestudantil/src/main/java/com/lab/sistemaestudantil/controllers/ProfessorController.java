@@ -166,7 +166,7 @@ public class ProfessorController {
                 SistemaDeEmail email = new SistemaDeEmail();
                 email.enviarEmail();
                 redirectAttrs.addFlashAttribute("success", "Transferência realizada com sucesso!");
-                redirectAttrs.addFlashAttribute("success2", "Cupom enviado!");
+                redirectAttrs.addFlashAttribute("success2", "Email enviado!");
                 return "redirect:/professores/{professorId}";
             }
         }
