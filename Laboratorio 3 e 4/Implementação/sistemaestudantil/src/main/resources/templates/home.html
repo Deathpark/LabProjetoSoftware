@@ -5,6 +5,7 @@
     <header th:replace="~{fragmentos :: header('Sistema estudantil')}"></header>
 
     <main>
+      <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
       <div class="container mt-4">
         <div th:hidden="true" class="list-group">
           <button

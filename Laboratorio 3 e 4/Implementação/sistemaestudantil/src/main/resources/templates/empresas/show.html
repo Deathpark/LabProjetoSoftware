@@ -21,6 +21,16 @@
               th:href="@{/empresas/{idEmpresa}/vantagem(idEmpresa = ${empresa.id})}"
               >Vantagens</a
             >
+            <a
+              class="btn btn-primary"
+              th:href="@{/empresas/{idEmpresa}/edit(idEmpresa = ${empresa.id})}"
+              >Editar</a
+            >
+            <a
+              class="btn btn-primary"
+              th:href="@{/empresas/{idEmpresa}/delete(idEmpresa = ${empresa.id})}"
+              >Excluir Empresa</a
+            >
           </div>
         </div>
       </div>

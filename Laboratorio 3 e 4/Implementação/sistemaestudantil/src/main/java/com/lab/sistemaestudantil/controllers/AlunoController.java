@@ -136,10 +136,10 @@ public class AlunoController {
     public String delete(@PathVariable Long id) {
         try {
             this.alunoRepository.deleteById(id);
-            return "redirect:/alunos";
+            return "redirect:/";
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
-            return "redirect:/alunos";
+            return "redirect:/";
         }
 
     }
